@@ -156,8 +156,9 @@
 					<points_target>9</points_target>
 				</inventor>
 			</inventors>
-		<team>
 		</team>
+		<team>
+		
 			<color>yellow</color>
 			<inventors>
 				<inventor>
@@ -296,6 +297,7 @@
 			</inventors>
 		</team>
 		<team>
+		
 			<color>purple</color>
 			<inventors>
 				<inventor>
