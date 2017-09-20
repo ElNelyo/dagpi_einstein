@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Elements of the game Legendary Inventors. -->
 <game_elements>
@@ -86,8 +86,9 @@
 					<points_target>9</points_target>
 				</inventor>
 			</inventors>
-		<team>
 		</team>
+		<team>
+		
 			<color>blue</color>
 			<inventors>
 				<inventor>
