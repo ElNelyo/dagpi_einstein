@@ -1,7 +1,7 @@
 from enum import Enum
 
 class Colour(Enum):
-    """ enumération class that enumerates the possible colors """
+    """ enumeration class that enumerates the possible colors """
 red=0
 blue=1
 pink=2
