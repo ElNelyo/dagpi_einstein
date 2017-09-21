@@ -1,5 +1,5 @@
-from enum import Enum, unique
-@unique
+from enum import Enum
+
 class Colour(Enum):
     """ enumeration class that enumerates the possible colors """
 red=0

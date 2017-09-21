@@ -1,5 +1,4 @@
-# Create Taken class
+#Creation classe Token
 class Token:
-    def __init__(self, id, type):
-        self.id = id
+    def __init__(self,type):
         self.type = type
