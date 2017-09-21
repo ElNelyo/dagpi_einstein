@@ -1,8 +1,8 @@
 class Player:
 
-    def __init__(self, id, nom):
-        self.id = id
-        self.nom = nom
+    def __init__(self, id, name):
+        self.Id = id
+        self.Name = name
 
 
 
