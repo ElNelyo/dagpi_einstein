@@ -3,7 +3,7 @@ from xml.dom import minidom
 
 #TestPushDepuisPyCharm
 
-#Fichier xml chargé
+#Fichier xml charge
 xmldoc = minidom.parse('data.xml')
 
 #Liste des inventeur
@@ -12,14 +12,14 @@ inventorlist = xmldoc.getElementsByTagName('team')
 #Liste des inventions
 inventionslist = xmldoc.getElementsByTagName('inventions')
 
-#Liste des récompenses
+#Liste des recompenses
 rewardlist = xmldoc.getElementsByTagName('rewards')
 
 
 
 #Pour chaque inventeur dans la liste des inventions
 for item in inventorlist:
-    colorlist = item.getElementsByTagName('color') #On récupère sa couleur
+    colorlist = item.getElementsByTagName('color') #On recupere sa couleur
     for color in colorlist:
         print("-------------------")
         print("TEAM : "+ color.firstChild.data)
@@ -30,13 +30,13 @@ for item in inventorlist:
     inventorlist = item.getElementsByTagName('inventor')
 
     for inventor in inventorlist:
-        name = inventor.getElementsByTagName('name') #On récupère son nom
-        physics = inventor.getElementsByTagName('physics') #On récupère sa compétence en physique
-        mathematics = inventor.getElementsByTagName('mathematics') #On récupère sa compétence en math
-        chemistry = inventor.getElementsByTagName('chemistry') #On récupère sa compétence en chimie
-        mechanics = inventor.getElementsByTagName('mechanics') #On récupère sa compétence en mecanique
+        name = inventor.getElementsByTagName('name') #On recupere son nom
+        physics = inventor.getElementsByTagName('physics') #On recupere sa competence en physique
+        mathematics = inventor.getElementsByTagName('mathematics') #On recupere sa competence en math
+        chemistry = inventor.getElementsByTagName('chemistry') #On recupere sa competence en chimie
+        mechanics = inventor.getElementsByTagName('mechanics') #On recupere sa competence en mecanique
 
-        knowledgetargetlist = inventor.getElementsByTagName('target_knowledge') #On récupère ses target compétences (liste)
+        knowledgetargetlist = inventor.getElementsByTagName('target_knowledge') #On recupere ses target competences (liste)
 
         print("[Name]")
         print(name[0].firstChild.nodeValue)
@@ -50,13 +50,13 @@ for item in inventorlist:
         print("[Target Knowledge]")
 
 
-        #Pour chaque compétence target de sa liste de compétence target
+        #Pour chaque competence target de sa liste de competence target
         for knowledgetarget in knowledgetargetlist:
 
-            physicstarget = knowledgetarget.getElementsByTagName('physics')   #On récupère sa compétence en physique
-            mathematicstarget = knowledgetarget.getElementsByTagName('mathematics')  #On récupère sa compétence en mathématique
-            mechanicstarget = knowledgetarget.getElementsByTagName('mechanics')  #On récupère sa compétence en mécanique
-            chemistrytarget = knowledgetarget.getElementsByTagName('chemistry')  #On récupère sa compétence en chimie
+            physicstarget = knowledgetarget.getElementsByTagName('physics')   #On recupere sa competence en physique
+            mathematicstarget = knowledgetarget.getElementsByTagName('mathematics')  #On recupere sa competence en mathematique
+            mechanicstarget = knowledgetarget.getElementsByTagName('mechanics')  #On recupere sa competence en mecanique
+            chemistrytarget = knowledgetarget.getElementsByTagName('chemistry')  #On recupere sa competence en chimie
 
             print("physique : " + physicstarget[0].firstChild.nodeValue)
             print("chemistry : " + chemistrytarget[0].firstChild.nodeValue)
@@ -74,16 +74,16 @@ for item in inventionslist:
     print("-------------------")
     print(" ")
 
-    inventionlist = item.getElementsByTagName('invention') #On récupère une invention
+    inventionlist = item.getElementsByTagName('invention') #On recupere une invention
 
 
     for invention in inventionlist:
-        name = invention.getElementsByTagName('name') #On récupère son nom
-        physics = invention.getElementsByTagName('physics') #On récupère sa compétence en physique
-        chemistry = invention.getElementsByTagName('chemistry') #On récupère sa compétence en chimie
-        mechanics = invention.getElementsByTagName('mechanics') #On récupère sa compétence en mecanique
-        mathematics = invention.getElementsByTagName('mathematics') #On récupère sa compétence en mathématique
-        classification = invention.getElementsByTagName('classification') #On récupère sa classification
+        name = invention.getElementsByTagName('name') #On recupere son nom
+        physics = invention.getElementsByTagName('physics') #On recupere sa competence en physique
+        chemistry = invention.getElementsByTagName('chemistry') #On recupere sa competence en chimie
+        mechanics = invention.getElementsByTagName('mechanics') #On recupere sa competence en mecanique
+        mathematics = invention.getElementsByTagName('mathematics') #On recupere sa competence en mathematique
+        classification = invention.getElementsByTagName('classification') #On recupere sa classification
 
 
 
@@ -103,27 +103,27 @@ for item in inventionslist:
 
         print("~")
 
-#Pour chaque récompense dans la liste de récompenses
+#Pour chaque recompense dans la liste de recompenses
 for item in rewardlist:
-    progresspointlist = item.getElementsByTagName('progress_reward') #On récupère la liste des progresspoint
-    pointrewardlist = item.getElementsByTagName('point_reward') #On récupère la liste des pointreward
-    availabilityrewardlist = item.getElementsByTagName('availability_reward') #On récupère la liste des availibilityreward
-    additionalknowledgerewardlist = item.getElementsByTagName('additional_knowledge_reward') #On récupère la liste des additionalknowledgereward
-    classificationrewardlist = item.getElementsByTagName('classification_reward') #On récupère la liste des classificationreward
+    progresspointlist = item.getElementsByTagName('progress_reward') #On recupere la liste des progresspoint
+    pointrewardlist = item.getElementsByTagName('point_reward') #On recupere la liste des pointreward
+    availabilityrewardlist = item.getElementsByTagName('availability_reward') #On recupere la liste des availibilityreward
+    additionalknowledgerewardlist = item.getElementsByTagName('additional_knowledge_reward') #On recupere la liste des additionalknowledgereward
+    classificationrewardlist = item.getElementsByTagName('classification_reward') #On recupere la liste des classificationreward
 
     print("[Progress Reward]")
     # Pour chaque progresspoint de la liste de progresspoint
     for progresspoint in progresspointlist:
-        reward = progresspoint.getElementsByTagName('number') #On récupère son nombre
-        level = progresspoint.getElementsByTagName('level') #On récupère son niveau
+        reward = progresspoint.getElementsByTagName('number') #On recupere son nombre
+        level = progresspoint.getElementsByTagName('level') #On recupere son niveau
         print("reward "+level[0].firstChild.nodeValue+" : "+ reward[0].firstChild.nodeValue)
     print(" ")
     print("[Points Reward]")
 
 # Pour chaque pointreward de la liste de pointreward
     for pointreward in pointrewardlist:
-        reward = pointreward.getElementsByTagName('number')#On récupère son nombre
-        level = pointreward.getElementsByTagName('point')#On récupère ses points
+        reward = pointreward.getElementsByTagName('number')#On recupere son nombre
+        level = pointreward.getElementsByTagName('point')#On recupere ses points
         print("reward "+level[0].firstChild.nodeValue+" : "+ reward[0].firstChild.nodeValue)
 
     print(" ")
@@ -131,17 +131,17 @@ for item in rewardlist:
 
 # Pour chaque availabilityreward de la liste de availabilityreward
     for availabilityreward in availabilityrewardlist:
-        print(availabilityreward.firstChild.data)#On récupère son nombre
+        print(availabilityreward.firstChild.data)#On recupere son nombre
 
     print(" ")
     print("[Additionalknowledge Reward]")
 
 # Pour chaque availabilityreward de la liste de availabilityreward
     for additionalknowledgereward in additionalknowledgerewardlist:
-        print(additionalknowledgereward.firstChild.data) #On récupère son nombre
+        print(additionalknowledgereward.firstChild.data) #On recupere son nombre
 
     print(" ")
     print("[Classification Reward]")
 # Pour chaque availabilityreward de la liste de availabilityreward
     for classificationreward in classificationrewardlist:
-        print(classificationreward.firstChild.data)#On récupère son nombre
+        print(classificationreward.firstChild.data)#On recupere son nombre
