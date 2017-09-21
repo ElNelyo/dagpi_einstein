@@ -1,10 +1,8 @@
-import Player, Team, Color
+import Player, Inventor, Color
 
-class team:
+
+class Team:
     def __init__(self, playerTeam, inventorTeam, colorTeam):
         self.player = playerTeam
         self.inventorTeam = []
         self.color = colorTeam
-
-
-
