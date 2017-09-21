@@ -17,14 +17,20 @@ https://trello.com/b/nx6JhOVV/einstein
 
 
 ## HowTo git
+! Attention à ne pas travailler sur le même fichier ! 
 
-1) Créez une copie du répo en appuyant sur Fork, via l'adresse :
-https://github.com/ElNelyo/dagpi_einstein.git
+1) Ouvrez git bash
 
-1) Ouvrez git bash, cd jusqu'à votre dossier de travail puis tapez:
+1) Créez une copie du répo :
 
 ```
-git clone https://github.com/MONGIT/dagpi_einstein.git
+git clone https://github.com/ElNelyo/dagpi_einstein.git
+```
+
+1) cd jusqu'à votre dossier de travail:
+
+```
+cd dagpti_einstein
 ```
 2) Passez sur la branche de dev
 
@@ -56,14 +62,13 @@ git commit -m "Ma modification"
 ```
 git push
 ```
-8) Revenez sur votre git, cliquez sur PullRequests et envoyez vos modifications
-
 
 9) Fini !
 
 
 
 **Cas particulier**
+
 A chaque ajout d'une personne sur le répo vous devez mettre à jour votre travail en local avec la commande
 ```
 git pull
