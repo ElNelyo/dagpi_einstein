@@ -1,4 +1,4 @@
-#Creation de la classe Gameboard
+#Create Gameboard class
 class Gameboard:
     def __init__(self, tour):
         self.tour = tour
