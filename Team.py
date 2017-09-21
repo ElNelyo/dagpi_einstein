@@ -1,8 +1,8 @@
-import Player, Inventor, Color
+import Player, Inventor, Colour
 
 
 class Team:
-    def __init__(self, playerTeam, inventorTeam, colorTeam):
-        self.player = playerTeam
+    def __init__(self, playerteam, inventorteam, colourteam):
+        self.player = playerteam
         self.inventorTeam = []
-        self.color = colorTeam
+        self.colour = colourteam
