@@ -1,9 +1,9 @@
 class InventorKnowledge:
 
-    def __init__(self,inventor,knowledge):
+    def __init__(self,inventor,knowledge,nombre):
         self.inventor = inventor
         self.knowledge = knowledge
-        self.nombre = 0
+        self.nombre = nombre
 
 
 
