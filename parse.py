@@ -1,6 +1,8 @@
 #IMPORT XML DOM
 from xml.dom import minidom
 
+#TestPushDepuisPyCharm
+
 #Fichier xml chargé
 xmldoc = minidom.parse('data.xml')
 
