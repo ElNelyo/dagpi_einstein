@@ -99,22 +99,25 @@ class Game():
         fond = pygame.image.load("background.jpg").convert()
         background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
         fenetre.blit(background, (0, 0))
-        button_red =  pygame.draw.rect(fenetre, Game.RED, [Game.WIDTH/6-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
-        button_green = pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/6*2-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
-        button_blue = pygame.draw.rect(fenetre, Game.BLUE, [Game.WIDTH/6*3-Game.WIDTH_BUTTON/2, Game.HEIGHT/4,Game. WIDTH_BUTTON, 50])
-        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW, [Game.WIDTH/6*4-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
+
+
+        button_green = pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/6-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
+        button_red = pygame.draw.rect(fenetre, Game.RED,[Game.WIDTH / 6*4 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4, Game.WIDTH_BUTTON, 50])
+        button_blue = pygame.draw.rect(fenetre, Game.BLUE, [Game.WIDTH/6*2-Game.WIDTH_BUTTON/2, Game.HEIGHT/4,Game. WIDTH_BUTTON, 50])
+        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW, [Game.WIDTH/6*3-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
         button_purple = pygame.draw.rect(fenetre, Game.PURPLE, [Game.WIDTH/6*5-Game.WIDTH_BUTTON/2, Game.HEIGHT /4, Game.WIDTH_BUTTON, 50])
 
         myParse = parse.Parse()
         myColor = parse.Parse.getColor(myParse)
+        fontcompt = 1
+
         for item in myColor:
             myfont = pygame.font.SysFont("monospace", 14)
             label = myfont.render(item, 1, (0, 0, 0))
-            fenetre.blit(label, ((Game.WIDTH - label.get_width()) / 2, Game.HEIGHT / 5 - label.get_height()))
+            fenetre.blit(label, ((Game.WIDTH/6*fontcompt-Game.WIDTH_BUTTON/2+label.get_width()/2,Game.HEIGHT/4)))
+            fontcompt +=1
 
-        test = parse.Parse()
-        test = test.getTeam()
-        print(test)
+
 
 
         myfont = pygame.font.SysFont("monospace", 52)
@@ -128,10 +131,6 @@ class Game():
         while loop:
 
             pygame.display.flip()
-
-            # Draw a rectangle outline representing the gameboard with inventions cards
-
-            # retourne 1 si le curseur est au dessus du rectangle
             mouse_xy = pygame.mouse.get_pos()
 
 
@@ -139,13 +138,35 @@ class Game():
                 if event.type == pygame.QUIT:
                     loop = False
                 # si clic, le vert devient rouge
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    self.showGameScreen()
+
+                if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 200 and 150 < event.pos[1] < 250:
+                        print("Green team")
+                        self.getMyTeam("green")
+                if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[0] < 400  and 150 < event.pos[1] < 250:
+                        print("Blue team")
+                        self.getMyTeam("blue")
+                if event.type == pygame.MOUSEBUTTONDOWN and 400 < event.pos[0] < 600 and 150 < event.pos[1] < 250:
+                        print("Yellow team")
+                        self.getMyTeam("yellow")
+                if event.type == pygame.MOUSEBUTTONDOWN and 600 < event.pos[0] < 800 and 150 < event.pos[1] < 250:
+                        print("Red team")
+                        self.getMyTeam("red")
+                if event.type == pygame.MOUSEBUTTONDOWN and 800 < event.pos[0] < 1000 and 150 < event.pos[1] < 250:
+                        print("Purple team")
+                        self.getMyTeam("purple")
 
             pygame.display.flip()
             # 10 fps
 
+    def getMyTeam(self,colour):
+        myparse = parse.Parse()
+        myteams = myparse.getTeam()
+        for team in myteams:
 
+            if(team.color==colour):
+                for inv in team.inventors:
+                    print("Inventor added :"+inv.name)
+                return team
 
 
 myGame= Game()
