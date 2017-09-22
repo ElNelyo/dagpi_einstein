@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import parse
 import pygame
 
 
@@ -14,7 +14,7 @@ class Game():
     RED = 255, 0, 0
     YELLOW = 255, 255, 100
     PURPLE = 204, 0, 153
-    WIDTH = 1280
+    WIDTH = 1080
     HEIGHT = 720
 
     WINDOW_WIDTH = WIDTH / 4
@@ -89,19 +89,35 @@ class Game():
             # 10 fps
 
     def loadSettingMenu(self):
+
+        """myParse = parse.Parse()
+        myInventors = parse.Parse.getInventor(myParse)
+        for item in myInventors:
+            print(item.name)"""
+
+
+        WIDTH_BUTTON = 100
+
+
         clock = pygame.time.Clock()
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
         background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
         fenetre.blit(background, (0, 0))
-        button =  pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/2, Game.HEIGHT/2, 100, 50])
+        button_red =  pygame.draw.rect(fenetre, Game.RED, [Game.WIDTH/6-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
+        button_green = pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/6*2-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
+        button_blue = pygame.draw.rect(fenetre, Game.BLUE, [Game.WIDTH/6*3-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
+        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW, [Game.WIDTH/6*4-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
+        button_purple = pygame.draw.rect(fenetre, Game.PURPLE, [Game.WIDTH/6*5-WIDTH_BUTTON/2, Game.HEIGHT /4, WIDTH_BUTTON, 50])
+
 
 
         myfont = pygame.font.SysFont("monospace", 52)
         # render text
         label = myfont.render("Select a player!", 1, (0, 0, 0))
-        fenetre.blit(label, ((Game.WIDTH-label.get_width())/2 , Game.HEIGHT/3 -label.get_height()))
+        fenetre.blit(label, ((Game.WIDTH-label.get_width())/2 , Game.HEIGHT/5 -label.get_height()))
         loop = True
+
 
 
         while loop:
@@ -127,6 +143,8 @@ class Game():
 
 
 
-
 myGame= Game()
 myGame.loadSettingMenu()
+
+
+
