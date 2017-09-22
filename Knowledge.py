@@ -1,7 +1,9 @@
-from enum import Enum,unique
+from enum import Enum, unique
+
+
 @unique
 class Knowledge(Enum):
-    Physics = 0
-    Chemistry = 1
-    Mecanics = 2
-    Mathematics = 3
+    physics = 0
+    chemistry = 1
+    mechanics = 2
+    mathematics = 3
