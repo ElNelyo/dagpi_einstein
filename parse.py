@@ -126,10 +126,20 @@ for item in inventionslist:
 
         # InventionKnowledge Object
 
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.physics, Invention)
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mathematics, Invention)
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.chemistry, Invention)
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mechanics, Invention)
+        myInventionKnowledgePhysics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.physics, Invention)
+        myInventionKnowledgeMathematics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mathematics, Invention)
+        myInventionKnowledgeChemistry = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.chemistry, Invention)
+        myInventionKnowledgeMechanics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mechanics, Invention)
+
+        agetmp = int(chemistry[0].firstChild.nodeValue) + \
+                 int(physics[0].firstChild.nodeValue) + \
+                 int(mathematics[0].firstChild.nodeValue) + \
+                 int(mechanics[0].firstChild.nodeValue)
+
+        myInvention.age = int((agetmp-3)/2)
+
+        print("WWWWWWWWWWWWWWWWWWWWWWWWWWW")
+        print(myInvention.age)
 
         print("[Name] ")
         print(name[0].firstChild.nodeValue)
