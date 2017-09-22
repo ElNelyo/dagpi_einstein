@@ -35,70 +35,49 @@ for item in inventorlist:
         name = inventor.getElementsByTagName('name')  # get his name
         points = inventor.getElementsByTagName('points_target')
 
-        # Inventor object
-        myInventor = Inventor.Inventor(name, points)
-        myListInventor.append(myInventor)
+        startphysics = inventor.getElementsByTagName('physics')  # Get physics knowledge
+        startmathematics = inventor.getElementsByTagName('mathematics')  # Get maths knowledge
+        startchemistry = inventor.getElementsByTagName('chemistry')  # Get chemistry knowledge
+        startmechanics = inventor.getElementsByTagName('mechanics')  # Get mechanics knowledge
 
-        physics = inventor.getElementsByTagName('physics')  # Get physics knowledge
-        mathematics = inventor.getElementsByTagName('mathematics')  # Get maths knowledge
-        chemistry = inventor.getElementsByTagName('chemistry')  # Get chemistry knowledge
-        mechanics = inventor.getElementsByTagName('mechanics')  # Get mechanics knowledge
+        # startknowledge var in inventor class
 
-        # InventorKnowledge Object
+        startknowledge = [int(startphysics[0].firstChild.nodeValue),
+                          int(startchemistry[0].firstChild.nodeValue),
+                          int(startmechanics[0].firstChild.nodeValue),
+                          int(startmathematics[0].firstChild.nodeValue)]
 
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.physics, physics)
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.mathematics,mathematics)
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.chemistry, chemistry)
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.mechanics, mechanics)
-
-        knowledgetargetlist = inventor.getElementsByTagName(
-            'target_knowledge')  # Get target knowledge (list)
-
-        print("[Name]")
-        print(name[0].firstChild.nodeValue)
-        print(" ")
-        print("[Knowledge]")
-        print("physique : " + physics[0].firstChild.nodeValue)
-        print("chemistry : " + chemistry[0].firstChild.nodeValue)
-        print("mechanics : " + mechanics[0].firstChild.nodeValue)
-        print("mathematics : " + mathematics[0].firstChild.nodeValue)
-        print(" ")
-        print("[Point target]")
-        print(points[0].firstChild.nodeValue)
-        print(" ")
-        print("[Target Knowledge]")
+        knowledgetargetlist = inventor.getElementsByTagName('target_knowledge')  # Get target knowledge (list)
 
         # For each knowledge of Target knowledges
         for knowledgetarget in knowledgetargetlist:
-            physicstarget = knowledgetarget.getElementsByTagName('physics')  # Get physics knowledge
-            mathematicstarget = knowledgetarget.getElementsByTagName(
-                'mathematics')  # Get maths knowledge
-            mechanicstarget = knowledgetarget.getElementsByTagName(
-                'mechanics')  # Get mechanics knowledge
-            chemistrytarget = knowledgetarget.getElementsByTagName('chemistry')  # Get chemistry knowledge
+            targetphysics = knowledgetarget.getElementsByTagName('physics')  # Get physics knowledge
+            targetmathematics = knowledgetarget.getElementsByTagName('mathematics')  # Get maths knowledge
+            targetmechanics = knowledgetarget.getElementsByTagName('mechanics')  # Get mechanics knowledge
+            targetchemistry = knowledgetarget.getElementsByTagName('chemistry')  # Get chemistry knowledge
 
-            # InventorKnowledge Target Object
+        targetknowledge = [int(targetphysics[0].firstChild.nodeValue),
+                           int(targetchemistry[0].firstChild.nodeValue),
+                           int(targetmechanics[0].firstChild.nodeValue),
+                           int(targetmathematics[0].firstChild.nodeValue)]
 
-            myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.physics,
-                                                                                        physics)
-            myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.mathematics,
-                                                                                        mathematics)
-            myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.chemistry,
-                                                                                        chemistry)
-            myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.mechanics,
-                                                                                        mechanics)
+        strName = name[0].firstChild.nodeValue
+        strPoints = points[0].firstChild.nodeValue
 
-            print("physique : " + physicstarget[0].firstChild.nodeValue)
-            print("chemistry : " + chemistrytarget[0].firstChild.nodeValue)
-            print("mechanics : " + mechanicstarget[0].firstChild.nodeValue)
-            print("mathematics : " + mathematicstarget[0].firstChild.nodeValue)
+        # Inventor object
+        myInventor = Inventor.Inventor(strName, strPoints, startknowledge, targetknowledge)
+        myListInventor.append(myInventor)
 
+        print("[Inventor]")
+        print(myInventor.name)
+        print("\n   [Start Knowledge]")
+        print("   " + str(startknowledge))
+        print("\n   [Target Knowledge]")
+        print("   " + str(targetknowledge))
+        print("\n   [Target Points]")
+        print("   " + myInventor.points)
         print(" ")
-        myTeam = Team.Team(myListInventor,myColor)
+        myTeam = Team.Team(myListInventor, myColor)
         """"for team in myTeam.inventors:
         print("LDOKDODSOKDKS33"+team.name[0].firstChild.nodeValue)
         print("LDOKDODSOKDKS33"+myTeam.color)"""
@@ -115,10 +94,10 @@ for item in inventionslist:
 
     for invention in inventionlist:
         name = invention.getElementsByTagName('name')  # Get name
-        physics = invention.getElementsByTagName('physics')  # Get physics knowledge
-        chemistry = invention.getElementsByTagName('chemistry')  # Get physics knowledge
-        mechanics = invention.getElementsByTagName('mechanics')  # Get mechanics knowledge
-        mathematics = invention.getElementsByTagName('mathematics')  # Get maths knowledge
+        startphysics = invention.getElementsByTagName('physics')  # Get physics knowledge
+        startchemistry = invention.getElementsByTagName('chemistry')  # Get physics knowledge
+        startmechanics = invention.getElementsByTagName('mechanics')  # Get mechanics knowledge
+        startmathematics = invention.getElementsByTagName('mathematics')  # Get maths knowledge
         classification = invention.getElementsByTagName('classification')  # Get classification
 
         # Invention Object
@@ -131,24 +110,23 @@ for item in inventionslist:
         myInventionKnowledgeChemistry = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.chemistry, Invention)
         myInventionKnowledgeMechanics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mechanics, Invention)
 
-        agetmp = int(chemistry[0].firstChild.nodeValue) + \
-                 int(physics[0].firstChild.nodeValue) + \
-                 int(mathematics[0].firstChild.nodeValue) + \
-                 int(mechanics[0].firstChild.nodeValue)
+        agetmp = int(startchemistry[0].firstChild.nodeValue) + \
+                 int(startphysics[0].firstChild.nodeValue) + \
+                 int(startmathematics[0].firstChild.nodeValue) + \
+                 int(startmechanics[0].firstChild.nodeValue)
 
         myInvention.age = int((agetmp-3)/2)
 
-        print("WWWWWWWWWWWWWWWWWWWWWWWWWWW")
-        print(myInvention.age)
+        print("Age : " + str(myInvention.age))
 
         print("[Name] ")
         print(name[0].firstChild.nodeValue)
         print(" ")
         print("[Knowledge]")
-        print("physics : " + physics[0].firstChild.nodeValue)
-        print("chemistry : " + chemistry[0].firstChild.nodeValue)
-        print("mechanics : " + mechanics[0].firstChild.nodeValue)
-        print("mathematics : " + mathematics[0].firstChild.nodeValue)
+        print("physics : " + startphysics[0].firstChild.nodeValue)
+        print("chemistry : " + startchemistry[0].firstChild.nodeValue)
+        print("mechanics : " + startmechanics[0].firstChild.nodeValue)
+        print("mathematics : " + startmathematics[0].firstChild.nodeValue)
 
         print(" ")
         print("[Classification]")
@@ -209,7 +187,7 @@ for item in rewardlist:
         number = int(float(availabilityreward.firstChild.data))
         for a in range(0, number):
             myToken = Token.Token("availabilityreward")
-            print("Objet availability cree")
+            print("Availability object created")
 
     print(" ")
     print("[Additionalknowledge Reward]")
@@ -229,8 +207,15 @@ for item in rewardlist:
         number = int(float(classificationreward.firstChild.data))
         for a in range(0, number):
             myToken = Token.Token("classificationreward")
-            print("Objet classification cree")
+            print("Classification object created")
 
-
-
-
+print("\n\n\n")
+test = myListInventor[0]
+print(test.name)
+print(test.startknowledge)
+test.addKnowledge(0, 2)
+test.addKnowledge(0, 3)
+test.addKnowledge(0, 4)
+test.addKnowledge(0, 5)
+test.addKnowledge(0, 6)
+print(test.startknowledge)

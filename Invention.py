@@ -13,19 +13,19 @@ class Invention:
 
 
 # GETTER TESTS
-invention = Invention('name', 'classification')
-print('-')
-print(invention.name)
-print(invention.classification)
-print(invention.age)
-print('-')
+#invention = Invention('name', 'classification')
+#print('-')
+#print(invention.name)
+#print(invention.classification)
+#print(invention.age)
+#print('-')
 
 # SETTER TESTS
-invention.name = 'name2'
-invention.classification = 'classification2'
-invention.age = '1'
-print('-')
-print(invention.name)
-print(invention.classification)
-print(invention.age)
-print('-')
+#invention.name = 'name2'
+#invention.classification = 'classification2'
+#invention.age = '1'
+#print('-')
+#print(invention.name)
+#print(invention.classification)
+#print(invention.age)
+#print('-')
