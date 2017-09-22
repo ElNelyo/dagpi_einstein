@@ -46,10 +46,10 @@ for item in inventorlist:
 
         # InventorKnowledge Object
 
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.Physics, physics)
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.Mathematics,mathematics)
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.Chemistry, chemistry)
-        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.Mecanics, mechanics)
+        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.physics, physics)
+        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.mathematics,mathematics)
+        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.chemistry, chemistry)
+        myInventorKnowledge = InventorKnowledge.InventorKnowledge(myInventor, Knowledge.Knowledge.mechanics, mechanics)
 
         knowledgetargetlist = inventor.getElementsByTagName(
             'target_knowledge')  # Get target knowledge (list)
@@ -80,16 +80,16 @@ for item in inventorlist:
             # InventorKnowledge Target Object
 
             myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.Physics,
+                                                                                        Knowledge.Knowledge.physics,
                                                                                         physics)
             myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.Mathematics,
+                                                                                        Knowledge.Knowledge.mathematics,
                                                                                         mathematics)
             myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.Chemistry,
+                                                                                        Knowledge.Knowledge.chemistry,
                                                                                         chemistry)
             myInventorKnowledgeTarget = InventorKnowledgeTarget.InventorKnowledgeTarget(myInventor,
-                                                                                        Knowledge.Knowledge.Mecanics,
+                                                                                        Knowledge.Knowledge.mechanics,
                                                                                         mechanics)
 
             print("physique : " + physicstarget[0].firstChild.nodeValue)
@@ -126,10 +126,10 @@ for item in inventionslist:
 
         # InventionKnowledge Object
 
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.Physics, Invention)
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.Mathematics, Invention)
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.Chemistry, Invention)
-        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.Mecanics, Invention)
+        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.physics, Invention)
+        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mathematics, Invention)
+        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.chemistry, Invention)
+        myInventionKnowledge = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mechanics, Invention)
 
         print("[Name] ")
         print(name[0].firstChild.nodeValue)
