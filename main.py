@@ -112,6 +112,11 @@ class Game():
             label = myfont.render(item, 1, (0, 0, 0))
             fenetre.blit(label, ((Game.WIDTH - label.get_width()) / 2, Game.HEIGHT / 5 - label.get_height()))
 
+        test = parse.Parse()
+        test = test.getTeam()
+        print(test)
+
+
         myfont = pygame.font.SysFont("monospace", 52)
         # render text
         label = myfont.render("Select a player!", 1, (0, 0, 0))

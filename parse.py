@@ -19,6 +19,7 @@ class Parse:
     myListInvention = []
     myListReward = []
     myListColor = []
+    myListTeam = []
 
     def getInventor(self):
         return self.myListInventor
@@ -32,6 +33,8 @@ class Parse:
     def getColor(self):
         return self.myListColor
 
+    def getTeam(self):
+        return self.myListTeam
 
     def loadInventor(self):
 
@@ -39,57 +42,55 @@ class Parse:
             colorlist = item.getElementsByTagName('color')  # get his color
             myColor = colorlist[0].firstChild.nodeValue
             self.myListColor.append(myColor)
-            teamlist = item.getElementsByTagName('inventor')
-            for inventor in teamlist:
+            inventorList = item.getElementsByTagName('inventors')
+            for inventor in inventorList:
+                listTruc = []
+                invlist = inventor.getElementsByTagName('inventor')
+                for inv in invlist:
 
-                name = inventor.getElementsByTagName('name')  # get his name
-                points = inventor.getElementsByTagName('points_target')
+                    name = inv.getElementsByTagName('name')  # get his name
+                    points = inv.getElementsByTagName('points_target')
+                    startphysics = inv.getElementsByTagName('physics')  # Get physics knowledge
+                    startmathematics = inv.getElementsByTagName('mathematics')  # Get maths knowledge
+                    startchemistry = inv.getElementsByTagName('chemistry')  # Get chemistry knowledge
+                    startmechanics = inv.getElementsByTagName('mechanics')  # Get mechanics knowledge
+                    # startknowledge var in inventor class
+                    startknowledge = [int(startphysics[0].firstChild.nodeValue),
+                                      int(startchemistry[0].firstChild.nodeValue),
+                                      int(startmechanics[0].firstChild.nodeValue),
+                                      int(startmathematics[0].firstChild.nodeValue)]
+                    knowledgetargetlist = inv.getElementsByTagName('target_knowledge')  # Get target knowledge (list)
+                    # For each knowledge of Target knowledges
+                    for knowledgetarget in knowledgetargetlist:
+                        targetphysics = knowledgetarget.getElementsByTagName('physics')  # Get physics knowledge
+                        targetmathematics = knowledgetarget.getElementsByTagName('mathematics')  # Get maths knowledge
+                        targetmechanics = knowledgetarget.getElementsByTagName('mechanics')  # Get mechanics knowledge
+                        targetchemistry = knowledgetarget.getElementsByTagName('chemistry')  # Get chemistry knowledge
+                    targetknowledge = [int(targetphysics[0].firstChild.nodeValue),
+                                   int(targetchemistry[0].firstChild.nodeValue),
+                                   int(targetmechanics[0].firstChild.nodeValue),
+                                   int(targetmathematics[0].firstChild.nodeValue)]
+                    strName = name[0].firstChild.nodeValue
+                    strPoints = points[0].firstChild.nodeValue
+                    # Inventor object
+                    myInventor = Inventor.Inventor(strName, strPoints, startknowledge, targetknowledge)
+                    listTruc.append(myInventor)
 
+                    #Bon inventeur avec bonne team
+                    print(myInventor.name)
+                    print(myColor)
 
-                startphysics = inventor.getElementsByTagName('physics')  # Get physics knowledge
-                startmathematics = inventor.getElementsByTagName('mathematics')  # Get maths knowledge
-                startchemistry = inventor.getElementsByTagName('chemistry')  # Get chemistry knowledge
-                startmechanics = inventor.getElementsByTagName('mechanics')  # Get mechanics knowledge
-
-                # startknowledge var in inventor class
-
-                startknowledge = [int(startphysics[0].firstChild.nodeValue),
-                                  int(startchemistry[0].firstChild.nodeValue),
-                                  int(startmechanics[0].firstChild.nodeValue),
-                                  int(startmathematics[0].firstChild.nodeValue)]
-
-                knowledgetargetlist = inventor.getElementsByTagName('target_knowledge')  # Get target knowledge (list)
-
-                # For each knowledge of Target knowledges
-
-                for knowledgetarget in knowledgetargetlist:
-                    targetphysics = knowledgetarget.getElementsByTagName('physics')  # Get physics knowledge
-                    targetmathematics = knowledgetarget.getElementsByTagName('mathematics')  # Get maths knowledge
-                    targetmechanics = knowledgetarget.getElementsByTagName('mechanics')  # Get mechanics knowledge
-                    targetchemistry = knowledgetarget.getElementsByTagName('chemistry')  # Get chemistry knowledge
-
-                targetknowledge = [int(targetphysics[0].firstChild.nodeValue),
-                               int(targetchemistry[0].firstChild.nodeValue),
-                               int(targetmechanics[0].firstChild.nodeValue),
-                               int(targetmathematics[0].firstChild.nodeValue)]
-
-                strName = name[0].firstChild.nodeValue
-                strPoints = points[0].firstChild.nodeValue
-
-                # Inventor object
-                myInventor = Inventor.Inventor(strName, strPoints, startknowledge, targetknowledge)
-                self.myListInventor.append(myInventor)
-
-                print("[Inventor]")
-                print(myInventor.name)
-                print("\n   [Start Knowledge]")
-                print("   " + str(startknowledge))
-                print("\n   [Target Knowledge]")
-                print("   " + str(targetknowledge))
-                print("\n   [Target Points]")
-                print("   " + myInventor.points)
-                print(" ")
-                myTeam = Team.Team(self.myListInventor, myColor)
+                    print("[Inventor]")
+                    print(myInventor.name)
+                    print("\n   [Start Knowledge]")
+                    print("   " + str(startknowledge))
+                    print("\n   [Target Knowledge]")
+                    print("   " + str(targetknowledge))
+                    print("\n   [Target Points]")
+                    print("   " + myInventor.points)
+                    print(" ")
+                myTeam = Team.Team(listTruc, myColor)
+                self.myListTeam.append(myTeam)
                 """"for team in myTeam.inventors:
                 print("LDOKDODSOKDKS33"+team.name[0].firstChild.nodeValue)
                 print("LDOKDODSOKDKS33"+myTeam.color)"""
