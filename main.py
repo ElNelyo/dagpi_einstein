@@ -16,9 +16,9 @@ class Game():
     PURPLE = 204, 0, 153
     WIDTH = 1080
     HEIGHT = 720
-
     WINDOW_WIDTH = WIDTH / 4
     WINDOW_HEIGHT = HEIGHT / 2
+    WIDTH_BUTTON = 100
 
     def __init__(self):
         pygame.init()
@@ -90,13 +90,8 @@ class Game():
 
     def loadSettingMenu(self):
 
-        """myParse = parse.Parse()
-        myInventors = parse.Parse.getInventor(myParse)
-        for item in myInventors:
-            print(item.name)"""
 
 
-        WIDTH_BUTTON = 100
 
 
         clock = pygame.time.Clock()
@@ -104,13 +99,18 @@ class Game():
         fond = pygame.image.load("background.jpg").convert()
         background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
         fenetre.blit(background, (0, 0))
-        button_red =  pygame.draw.rect(fenetre, Game.RED, [Game.WIDTH/6-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
-        button_green = pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/6*2-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
-        button_blue = pygame.draw.rect(fenetre, Game.BLUE, [Game.WIDTH/6*3-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
-        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW, [Game.WIDTH/6*4-WIDTH_BUTTON/2, Game.HEIGHT/4, WIDTH_BUTTON, 50])
-        button_purple = pygame.draw.rect(fenetre, Game.PURPLE, [Game.WIDTH/6*5-WIDTH_BUTTON/2, Game.HEIGHT /4, WIDTH_BUTTON, 50])
+        button_red =  pygame.draw.rect(fenetre, Game.RED, [Game.WIDTH/6-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
+        button_green = pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/6*2-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
+        button_blue = pygame.draw.rect(fenetre, Game.BLUE, [Game.WIDTH/6*3-Game.WIDTH_BUTTON/2, Game.HEIGHT/4,Game. WIDTH_BUTTON, 50])
+        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW, [Game.WIDTH/6*4-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
+        button_purple = pygame.draw.rect(fenetre, Game.PURPLE, [Game.WIDTH/6*5-Game.WIDTH_BUTTON/2, Game.HEIGHT /4, Game.WIDTH_BUTTON, 50])
 
-
+        myParse = parse.Parse()
+        myColor = parse.Parse.getColor(myParse)
+        for item in myColor:
+            myfont = pygame.font.SysFont("monospace", 14)
+            label = myfont.render(item, 1, (0, 0, 0))
+            fenetre.blit(label, ((Game.WIDTH - label.get_width()) / 2, Game.HEIGHT / 5 - label.get_height()))
 
         myfont = pygame.font.SysFont("monospace", 52)
         # render text

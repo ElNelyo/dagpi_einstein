@@ -18,6 +18,7 @@ class Parse:
     myListInventor = []
     myListInvention = []
     myListReward = []
+    myListColor = []
 
     def getInventor(self):
         return self.myListInventor
@@ -28,12 +29,16 @@ class Parse:
     def getReward(self):
         return self.myListReward
 
+    def getColor(self):
+        return self.myListColor
+
+
     def loadInventor(self):
 
         for item in self.teamlist:
             colorlist = item.getElementsByTagName('color')  # get his color
             myColor = colorlist[0].firstChild.nodeValue
-
+            self.myListColor.append(myColor)
             teamlist = item.getElementsByTagName('inventor')
             for inventor in teamlist:
 
