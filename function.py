@@ -1,3 +1,6 @@
+import random
+
+
 # Function initNbPlayer() who define how number of player in the game
 def initNbPlayer():
     nbPlayer = input("How many player ? : ")
@@ -26,3 +29,16 @@ def initFirstPlayer(nbPlayer):
 def whereIsLeonard():
     #Retourner le currentPlayer en fonction de si l'invention est terminé.
     while ()
+
+
+#We need to have the inventionsList
+def pickCardByAge(nbCards, age):
+    listToReturn = []
+    cardsLeftToPick = nbCards
+    while(cardsLeftToPick >= 0):
+        position = random.randrange(0, len(inventionsList)-1, 1)
+        card = inventionsList[position]
+        if card.age == age:
+            inventionsList.remove(card)
+            listToReturn.append(card)
+            cardsLeftToPick = cardsLeftToPick-1
