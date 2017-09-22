@@ -13,7 +13,7 @@ import Team
 xmldoc = minidom.parse('data.xml')
 
 # Inventors list
-inventorlist = xmldoc.getElementsByTagName('team')
+teamlist = xmldoc.getElementsByTagName('team')
 
 # Inventions list
 inventionslist = xmldoc.getElementsByTagName('inventions')
@@ -22,15 +22,16 @@ inventionslist = xmldoc.getElementsByTagName('inventions')
 rewardlist = xmldoc.getElementsByTagName('rewards')
 
 myListInventor = []
+myListInvention = []
 
 # For each inventor in inventors list
-for item in inventorlist:
+for item in teamlist:
     colorlist = item.getElementsByTagName('color')  # get his color
     myColor = colorlist[0].firstChild.nodeValue
 
-    inventorlist = item.getElementsByTagName('inventor')
+    teamlist = item.getElementsByTagName('inventor')
 
-    for inventor in inventorlist:
+    for inventor in teamlist:
 
         name = inventor.getElementsByTagName('name')  # get his name
         points = inventor.getElementsByTagName('points_target')
@@ -100,20 +101,20 @@ for item in inventionslist:
         startmathematics = invention.getElementsByTagName('mathematics')  # Get maths knowledge
         classification = invention.getElementsByTagName('classification')  # Get classification
 
+        knowledge = [int(startphysics[0].firstChild.nodeValue),
+                     int(startchemistry[0].firstChild.nodeValue),
+                     int(startmechanics[0].firstChild.nodeValue),
+                     int(startmathematics[0].firstChild.nodeValue)
+                     ]
+        agetmp = 0
+        for k in knowledge:
+            agetmp = agetmp + k
+
         # Invention Object
-        myInvention = Invention.Invention(name, classification)
 
-        # InventionKnowledge Object
-
-        myInventionKnowledgePhysics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.physics, Invention)
-        myInventionKnowledgeMathematics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mathematics, Invention)
-        myInventionKnowledgeChemistry = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.chemistry, Invention)
-        myInventionKnowledgeMechanics = InventionKnowledge.InventionKnowledge(Knowledge.Knowledge.mechanics, Invention)
-
-        agetmp = int(startchemistry[0].firstChild.nodeValue) + \
-                 int(startphysics[0].firstChild.nodeValue) + \
-                 int(startmathematics[0].firstChild.nodeValue) + \
-                 int(startmechanics[0].firstChild.nodeValue)
+        nametmp = name[0].firstChild.nodeValue
+        myInvention = Invention.Invention(nametmp, classification, knowledge)
+        myListInvention.append(myInvention)
 
         myInvention.age = int((agetmp-3)/2)
 
@@ -123,10 +124,11 @@ for item in inventionslist:
         print(name[0].firstChild.nodeValue)
         print(" ")
         print("[Knowledge]")
-        print("physics : " + startphysics[0].firstChild.nodeValue)
-        print("chemistry : " + startchemistry[0].firstChild.nodeValue)
-        print("mechanics : " + startmechanics[0].firstChild.nodeValue)
-        print("mathematics : " + startmathematics[0].firstChild.nodeValue)
+
+        print("physics : " + str(knowledge[0]))
+        print("chemistry : " + str(knowledge[1]))
+        print("mechanics : " + str(knowledge[2]))
+        print("mathematics : " + str(knowledge[3]))
 
         print(" ")
         print("[Classification]")
@@ -210,12 +212,6 @@ for item in rewardlist:
             print("Classification object created")
 
 print("\n\n\n")
-test = myListInventor[0]
+test = myListInvention[0]
 print(test.name)
-print(test.startknowledge)
-test.addKnowledge(0, 2)
-test.addKnowledge(0, 3)
-test.addKnowledge(0, 4)
-test.addKnowledge(0, 5)
-test.addKnowledge(0, 6)
-print(test.startknowledge)
+print(test.knowledge)

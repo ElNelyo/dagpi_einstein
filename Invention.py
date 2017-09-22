@@ -1,13 +1,8 @@
 class Invention:
-    def __init__(
-            self,
-            name,
-            classification,
-
-
-    ):
+    def __init__(self, name, classification, knowledge):
         self.name = name
         self.classification = classification
+        self.knowledge = knowledge
         self.age = 0
         # The age is calculated from the sum of each invention knowledge
 
