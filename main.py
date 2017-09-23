@@ -74,7 +74,7 @@ class Game():
 
         if pos != 4:
             colorList = self.exchangeList(colorList, pos, 4)
-            
+
         return colorList
 
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor):
