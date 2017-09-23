@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import parse
 import pygame
-
+import random
 
 
 
@@ -23,7 +23,7 @@ class Game():
     def __init__(self):
         pygame.init()
 
-    def showGameScreen(self):
+    def showGameScreen(self, playerColor):
         clock = pygame.time.Clock()
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
@@ -32,9 +32,52 @@ class Game():
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
 
-        self.loadPlayersBackgrounds(fenetre, fondCard)
+        self.loadPlayersBackgrounds(fenetre, fondCard, playerColor)
 
-    def loadPlayersBackgrounds(self,fenetre,fondCard):
+# exchanges 2 items of a list
+
+    def exchangeList(self, list, pos1, pos2):
+        tmp = list[pos1]
+        list[pos1] = list[pos2]
+        list[pos2] = tmp
+        return list
+
+# Places the player in the bottom right corner and randomizes other players position
+
+    def placeColors(self, strPlayerColor):
+
+        if strPlayerColor == "green":
+            playerColor = Game.GREEN
+        elif strPlayerColor == "purple":
+            playerColor = Game.PURPLE
+        elif strPlayerColor == "red":
+            playerColor = Game.RED
+        elif strPlayerColor == "yellow":
+            playerColor = Game.YELLOW
+        elif strPlayerColor == "blue":
+            playerColor = Game.BLUE
+
+        colorList = [Game.PURPLE, Game.YELLOW, Game.GREEN, Game.BLUE, Game.RED]
+
+        for x in range(0, 50): # exchanges 2 positions 60 times => randomizes the list
+            pos1 = 0;
+            pos2 = 0;
+            while pos1 == pos2:
+                pos1 = random.randrange(0, 5, 1)
+                pos2 = random.randrange(0, 5, 1)
+            colorList = self.exchangeList(colorList, pos1, pos2)
+
+        pos = 0
+        for x in range(0, 5):
+            if colorList[x] == playerColor:
+                pos = x
+
+        if pos != 4:
+            colorList = self.exchangeList(colorList, pos, 4)
+            
+        return colorList
+
+    def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor):
         #Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
         fenetre.blit(backgroundCard, (0, 0))
@@ -44,11 +87,10 @@ class Game():
         fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH*3), Game.WINDOW_HEIGHT))
 
         loop = True
-        yellow_color = Game.YELLOW
-        red_color = Game.RED
-        purple_color = Game.PURPLE
-        green_color = Game.GREEN
-        blue_color = Game.BLUE
+
+        colorList = self.placeColors(playerColor) #Place the player in the bottom right corner and
+                                                    #randomize other players position
+
         white_color = Game.WHITE
 
         while loop:
@@ -56,20 +98,20 @@ class Game():
 
             pygame.display.flip()
             # Draw a rectangle outline for each player area
-            player1 = pygame.draw.rect(fenetre, yellow_color, [0, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+            player1 = pygame.draw.rect(fenetre, colorList[0], [0, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-            player2 = pygame.draw.rect(fenetre, red_color, [Game.WINDOW_WIDTH, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+            player2 = pygame.draw.rect(fenetre, colorList[1], [Game.WINDOW_WIDTH, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-            player3 = pygame.draw.rect(fenetre, purple_color, [Game.WINDOW_WIDTH*2, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+            player3 = pygame.draw.rect(fenetre, colorList[2], [Game.WINDOW_WIDTH*2, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-            player4 = pygame.draw.rect(fenetre, green_color, [Game.WINDOW_WIDTH*3,0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+            player4 = pygame.draw.rect(fenetre, colorList[3], [Game.WINDOW_WIDTH*3,0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-            player5 = pygame.draw.rect(fenetre, blue_color, [Game.WINDOW_WIDTH*3, Game.WINDOW_HEIGHT+3, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT-5],
+            player5 = pygame.draw.rect(fenetre, colorList[4], [Game.WINDOW_WIDTH*3, Game.WINDOW_HEIGHT+3, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT-5],
                                           5)
             # Draw a rectangle outline representing the gameboard with inventions cards
             board = pygame.draw.rect(fenetre,white_color,[0,Game.WINDOW_HEIGHT+5,Game.WINDOW_WIDTH*3-5,Game.WINDOW_HEIGHT-6],
                                           5)
-            # retourne 1 si le curseur est au dessus du rectangle
+            # return 1 if cursor above rectangle
             mouse_xy = pygame.mouse.get_pos()
             over_white = player1.collidepoint(mouse_xy)
 
@@ -89,10 +131,6 @@ class Game():
             # 10 fps
 
     def loadSettingMenu(self):
-
-
-
-
 
         clock = pygame.time.Clock()
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
@@ -115,10 +153,7 @@ class Game():
             myfont = pygame.font.SysFont("monospace", 14)
             label = myfont.render(item, 1, (0, 0, 0))
             fenetre.blit(label, ((Game.WIDTH/6*fontcompt-Game.WIDTH_BUTTON/2+label.get_width()/2,Game.HEIGHT/4)))
-            fontcompt +=1
-
-
-
+            fontcompt += 1
 
         myfont = pygame.font.SysFont("monospace", 52)
         # render text
@@ -142,18 +177,23 @@ class Game():
                 if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 200 and 150 < event.pos[1] < 250:
                         print("Green team")
                         self.getMyTeam("green")
+                        self.showGameScreen("green")
                 if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[0] < 400  and 150 < event.pos[1] < 250:
                         print("Blue team")
                         self.getMyTeam("blue")
+                        self.showGameScreen("blue")
                 if event.type == pygame.MOUSEBUTTONDOWN and 400 < event.pos[0] < 600 and 150 < event.pos[1] < 250:
                         print("Yellow team")
                         self.getMyTeam("yellow")
+                        self.showGameScreen("yellow")
                 if event.type == pygame.MOUSEBUTTONDOWN and 600 < event.pos[0] < 800 and 150 < event.pos[1] < 250:
                         print("Red team")
                         self.getMyTeam("red")
+                        self.showGameScreen("red")
                 if event.type == pygame.MOUSEBUTTONDOWN and 800 < event.pos[0] < 1000 and 150 < event.pos[1] < 250:
                         print("Purple team")
                         self.getMyTeam("purple")
+                        self.showGameScreen("purple")
 
             pygame.display.flip()
             # 10 fps
@@ -169,7 +209,7 @@ class Game():
                 return team
 
 
-myGame= Game()
+myGame = Game()
 myGame.loadSettingMenu()
 
 
