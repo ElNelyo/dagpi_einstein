@@ -70,17 +70,25 @@ class Game():
                     if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 250 and 150 < event.pos[1] < 250:
                         print("Players :2")
                         self.showGameScreen(playerColor,2)
+                        loop = False
+
 
                     if event.type == pygame.MOUSEBUTTONDOWN and 250 < event.pos[0] < 450 and 150 < event.pos[1] < 250:
                         print("Players :3")
                         self.showGameScreen(playerColor,3)
+                        loop = False
+
 
                     if event.type == pygame.MOUSEBUTTONDOWN and 450 < event.pos[0] < 700 and 150 < event.pos[1] < 250:
                         print("Players :4")
                         self.showGameScreen(playerColor,4)
+                        loop = False
+
                     if event.type == pygame.MOUSEBUTTONDOWN and 700 < event.pos[0] < 950 and 150 < event.pos[1] < 250:
                         print("Players :5")
                         self.showGameScreen(playerColor,5)
+                        loop = False
+
             pygame.display.flip()
 
 
@@ -160,12 +168,20 @@ class Game():
         white_color = Game.WHITE
         myplayer_inventors = self.getMyInventors(playerColor)
         fonting_space = 90
+        knowledge_space = 90
 
         for myinventor in myplayer_inventors:
             myfont = pygame.font.SysFont("bitstreamverasans", 9)
             label = myfont.render(myinventor.name, 1, (0, 0, 0))
             fenetre.blit(label, ((Game.WIDTH-fonting_space, Game.HEIGHT-350)))
             fonting_space+=60
+            for i in range(0,4):
+                label = myfont.render(str(myinventor.startknowledge[i]), 1, (0, 0, 0))
+                fenetre.blit(label, ((Game.WIDTH - knowledge_space, Game.HEIGHT - 350)))
+                knowledge_space += 60
+
+
+
 
 
 
@@ -251,6 +267,7 @@ class Game():
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+
                     loop = False
                 # si clic, le vert devient rouge
 
@@ -258,22 +275,28 @@ class Game():
                         print("Green team")
                         self.getMyTeam("green")
                         self.selectIANumber("green")
+                        loop = False
                 if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[0] < 400  and 150 < event.pos[1] < 250:
                         print("Blue team")
                         self.getMyTeam("blue")
                         self.selectIANumber("blue")
+                        loop = False
+
                 if event.type == pygame.MOUSEBUTTONDOWN and 400 < event.pos[0] < 600 and 150 < event.pos[1] < 250:
                         print("Yellow team")
                         self.getMyTeam("yellow")
                         self.selectIANumber("yellow")
+                        loop = False
                 if event.type == pygame.MOUSEBUTTONDOWN and 600 < event.pos[0] < 800 and 150 < event.pos[1] < 250:
                         print("Red team")
                         self.getMyTeam("red")
                         self.selectIANumber("red")
+
                 if event.type == pygame.MOUSEBUTTONDOWN and 800 < event.pos[0] < 1000 and 150 < event.pos[1] < 250:
                         print("Purple team")
                         self.getMyTeam("purple")
                         self.selectIANumber("purple")
+                        loop = False
 
             pygame.display.flip()
             # 10 fps
