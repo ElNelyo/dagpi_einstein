@@ -253,8 +253,6 @@ class Game():
             playerPositions.append([int(Game.WINDOW_WIDTH*3), 0])
         playerPositions.append([int(Game.WINDOW_WIDTH*3), int(Game.WINDOW_HEIGHT)])
 
-        print(playerPositions)
-
         loop = True
 
         colorList = self.placeColors(playerColor, IANumber) #Place the player in the bottom right corner and
