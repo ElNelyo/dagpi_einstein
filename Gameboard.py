@@ -13,7 +13,7 @@ class Gameboard:
     def __init__(self, tour, nbPlayer):
         self.tour = tour
         self.age = 1
-        self.nbCardToDistribute = (nbPlayer +3)
+        self.nbCardToDistribute = (nbPlayer + 3)
         for token in parse.Parse.myListReward:
             self.pocket.append(token)
 
@@ -23,12 +23,12 @@ class Gameboard:
         cpt = 0
 
         while cpt < self.nbCardToDistribute:
-            myCard = cards[random.randint(0,len(cards))-1]
+            myCard = cards[random.randint(0, len(cards))-1]
             if self.age == myCard.age:
                 print(myCard.name)
                 self.cardsOnBoard.append(myCard)
                 temporarylist = []
-                token1 = self.pocket[random.randint(0,len(self.pocket)-1)]
+                token1 = self.pocket[random.randint(0, len(self.pocket)-1)]
                 self.pocket.remove(token1)
 
                 token2 = self.pocket[random.randint(0, len(self.pocket) - 1)]

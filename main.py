@@ -200,7 +200,9 @@ class Game():
 
             namePos = [originPosition[0] + fonting_space, originPosition[1] + 30]
 
-            name = inventor.name.split() #separates fist and last name into a list
+            # separates fist and last name into a list
+
+            name = inventor.name.split()
 
             vPoints = inventor.points
 
