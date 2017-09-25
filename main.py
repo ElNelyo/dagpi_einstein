@@ -3,6 +3,7 @@
 import parse
 import pygame
 import random
+import Gameboard
 
 class Game():
     CIEL = 0, 200, 255
@@ -103,7 +104,14 @@ class Game():
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
 
+        myGameboard = Gameboard.Gameboard(1,IAnumber)
+        myGameboard = myGameboard.distribute(1)
+
+
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
+
+
+
 
 # exchanges 2 items of a list
 
