@@ -33,10 +33,10 @@ class Gameboard:
 
                 token2 = self.pocket[random.randint(0, len(self.pocket) - 1)]
                 self.pocket.remove(token2)
-                temporarylist.append(myCard)
-                temporarylist.append(token1)
-                temporarylist.append(token2)
-                self.emplacementOnBoard.append(temporarylist)
+                self.temporarylist.append(myCard)
+                self.temporarylist.append(token1)
+                self.temporarylist.append(token2)
+                self.emplacementOnBoard.append(self.temporarylist)
 
                 cards.remove(myCard)
                 cpt += 1

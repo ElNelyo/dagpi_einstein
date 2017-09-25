@@ -3,7 +3,7 @@
 import parse
 import pygame
 import random
-import Gameboard 
+import Gameboard
 
 class Game():
     CIEL = 0, 200, 255
@@ -104,8 +104,8 @@ class Game():
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
 
-        myGameboard = Gameboard.Gameboard(1,IAnumber)
-        myGameboard = myGameboard.distribute(1)
+        myGameboard = Gameboard.Gameboard(1, IAnumber)
+        myGameboard = myGameboard.distribute()
 
 
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
