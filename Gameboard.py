@@ -27,7 +27,7 @@ class Gameboard:
             if self.age == myCard.age:
                 print(myCard.name)
                 self.cardsOnBoard.append(myCard)
-
+                temporarylist = []
                 token1 = self.pocket[random.randint(0,len(self.pocket)-1)]
                 self.pocket.remove(token1)
 
@@ -40,7 +40,7 @@ class Gameboard:
 
                 cards.remove(myCard)
                 cpt += 1
-                
+
         return self.cardsOnBoard
 
     def wakeUp(self, player, coffee, inventor):
