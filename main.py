@@ -3,7 +3,7 @@
 import parse
 import pygame
 import random
-import Gameboard
+import Gameboard 
 
 class Game():
     CIEL = 0, 200, 255
