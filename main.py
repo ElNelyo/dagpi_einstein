@@ -235,6 +235,63 @@ class Game():
             label = myfont.render(vPoints, 1, (0, 0, 0))
             fenetre.blit(label, (namePos[0], namePos[1] + (7 + i) * oneLine))
 
+    def displayToken(self, fenetre):
+
+        line = 2
+        height = int(self.HEIGHT / 4)  # 1/4 of the screen height
+        tokenOnBoard = Gameboard.emplacementOnBoard
+        myfonttoken = pygame.font.SysFont("bitstreamverasans", 10)
+        i = 0
+        for token in tokenOnBoard:
+            print("=========================")
+            print(token[0].name)
+            print(token[1].type)
+            print(token[2].type)
+
+            if i>3 :
+                line = 3
+
+            if token[1].type[:-1] == "pointreward":
+                token1 = myfonttoken.render(str("Pt" + token[1].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[2].type[:-1] == "pointreward":
+                token2 = myfonttoken.render(str("Pt" + token[2].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+
+            if token[1].type[:-1]== "progressreward":
+                token1 = myfonttoken.render(str("P"+token[1].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[2].type[:-1]== "progressreward":
+                token2 = myfonttoken.render(str("P"+token[2].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[1].type== "availabilityreward":
+                token1 = myfonttoken.render("AV", 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            if token[2].type== "availabilityreward":
+                token2 = myfonttoken.render("AV", 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[1].type == "additionalknowledgereward":
+                token1 = myfonttoken.render("AK", 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            if token[2].type == "additionalknowledgereward":
+                token2 = myfonttoken.render("AK", 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[1].type == "classificationreward":
+                token1 = myfonttoken.render("Cl", 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            if token[2].type == "classificationreward":
+                token2 = myfonttoken.render("Cl", 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            i+=1
+
+
+
     def displayCards(self, cards, fenetre):
 
         rectSize = 16
@@ -252,6 +309,8 @@ class Game():
                 line = 3
             positions.append([int(30 + int(i % 4)*(self.WIDTH/8)), line*height + 30])
             label = myfont.render(cards[i].name, 1, (0, 0, 0))
+
+
             fenetre.blit(label, (30 + int((i % 4)*(self.WIDTH/8)), line*height + 30))
 
         myfont = pygame.font.SysFont("bitstreamverasans", 14)
@@ -313,6 +372,7 @@ class Game():
         #135 = WIDHT / 8
 
         self.displayCards(cards, fenetre)
+        self.displayToken(fenetre)
 
         while loop:
 
