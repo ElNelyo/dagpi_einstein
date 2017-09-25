@@ -229,7 +229,7 @@ class Game():
             myfont = pygame.font.SysFont("bitstreamverasans", 14)
 
             for i in range(0, 4):
-                self.displayKnowledge(myfont, str(inventor.startknowledge[i]), fenetre, namePos, 0, i)
+                self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]), fenetre, namePos, 0, i)
                 self.displayKnowledge(myfont, str(inventor.targetknowledge[i]), fenetre, namePos, 20, i)
 
             label = myfont.render(vPoints, 1, (0, 0, 0))
