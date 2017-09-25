@@ -6,12 +6,9 @@ class Player:
         self.IA = ia
 
     def chooseTeam(colorChose):
-
-        player1 = Player.Player("player1", False)
-
         for team in parse.Parse.myListTeam:
             if colorChose == team.color:
-                player1.team = team
+                self.myTeam = team
                 team.playerName = player1.Name
 
 
