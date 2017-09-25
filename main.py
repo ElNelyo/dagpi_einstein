@@ -3,6 +3,7 @@
 import parse
 import pygame
 import random
+from Gameboard import Gameboard
 
 class Game():
     CIEL = 0, 200, 255
@@ -167,9 +168,9 @@ class Game():
                 returnList.append("blue")
         return returnList
 
-    def displayKnowledge(self, myfont, knowledge, fenetre, namePos, offset, i):
+    def displayKnowledge(self, myfont, knowledge, fenetre, pos1, pos2):
         label = myfont.render(knowledge, 1, (0, 0, 0))
-        fenetre.blit(label, (namePos[0] + offset, namePos[1] + (5 + i) * 12))
+        fenetre.blit(label, (pos1, pos2))
 
     def displayInventors(self, intPlayer, colorListString, originPosition, fenetre):
 
@@ -229,11 +230,52 @@ class Game():
             myfont = pygame.font.SysFont("bitstreamverasans", 14)
 
             for i in range(0, 4):
-                self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]), fenetre, namePos, 0, i)
-                self.displayKnowledge(myfont, str(inventor.targetknowledge[i]), fenetre, namePos, 20, i)
+                self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]),
+                                      fenetre, namePos[0], namePos[1] + (5 + i) * 12)
+                self.displayKnowledge(myfont, str(inventor.targetknowledge[i]),
+                                      fenetre, namePos[0] + 20, namePos[1] + (5 + i) * 12)
 
             label = myfont.render(vPoints, 1, (0, 0, 0))
             fenetre.blit(label, (namePos[0], namePos[1] + (7 + i) * oneLine))
+
+    def displayCards(self, cards, fenetre):
+
+        rectSize = 16
+
+        positions = []
+
+        myfont = pygame.font.SysFont("bitstreamverasans", 10)
+
+        height = int(self.HEIGHT/4) # 1/4 of the screen height
+
+        line = 2
+
+        for i in range(0, len(cards)):
+            if i > 3:
+                line = 3
+            positions.append([int(30 + int(i % 4)*(self.WIDTH/8)), line*height + 30])
+            label = myfont.render(cards[i].name, 1, (0, 0, 0))
+            fenetre.blit(label, (30 + int((i % 4)*(self.WIDTH/8)), line*height + 30))
+
+        myfont = pygame.font.SysFont("bitstreamverasans", 14)
+
+        for i in range(0, len(cards)):
+            heightoffest = 30
+            for kn in cards[i].knowledge:
+                widthoffset = 0
+                for j in range(0, kn):
+                    pygame.draw.rect(fenetre, Game.WHITE, [positions[i][0] + widthoffset, positions[i][1] + heightoffest,
+                                                           rectSize, rectSize])
+                    widthoffset += (rectSize + 2)
+                heightoffest += (rectSize +2)
+
+
+
+        # print(cards[0].knowledge)
+
+
+
+
 
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
         #Display Backgrounds for players emplacements
@@ -262,8 +304,18 @@ class Game():
 
         colorListString = self.fromRGBtoSTRINGList(colorList, len(colorList))
 
+# Display the inventors infos
+
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
+
+# Display the cards
+
+        gameboard = Gameboard(1, IANumber)
+        cards = gameboard.distribute()
+        #135 = WIDHT / 8
+
+        self.displayCards(cards, fenetre)
 
         while loop:
 
