@@ -29,71 +29,61 @@ class Game():
             if (team.color == colour):
                 return team.inventors
 
+    def drawButtonNbPlayer(self, fenetre, offset):
+        return pygame.draw.rect(fenetre, Game.WHITE,
+                                [Game.WIDTH / 5 * offset - Game.WIDTH_BUTTON / 2,
+                                 Game.HEIGHT / 3, Game.WIDTH_BUTTON, 50])
 
-    def selectIANumber(self,playerColor):
+    def selectIANumber(self, playerColor):
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
         background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
         fenetre.blit(background, (0, 0))
         myfont = pygame.font.SysFont("monospace", 52)
         label = myfont.render("Select max numbers of players  ", 1, (0, 0, 0))
-        fenetre.blit(label,((Game.WIDTH / 2-label.get_width()/2, Game.HEIGHT / 4-label.get_height())))
+        fenetre.blit(label, (Game.WIDTH / 2-label.get_width()/2, Game.HEIGHT / 4-label.get_height()))
+
         loop = True
+
         while loop:
-            button_2 = pygame.draw.rect(fenetre, Game.WHITE,
-                                            [Game.WIDTH / 5 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3, Game.WIDTH_BUTTON,
-                                             50])
-            button_3 = pygame.draw.rect(fenetre, Game.WHITE,
-                                          [Game.WIDTH / 5 * 2 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3, Game.WIDTH_BUTTON,
-                                           50])
-            button_4 = pygame.draw.rect(fenetre, Game.WHITE,
-                                           [Game.WIDTH / 5 * 3 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3, Game.WIDTH_BUTTON,
-                                            50])
-            button_5 = pygame.draw.rect(fenetre, Game.WHITE,
-                                             [Game.WIDTH / 5 *4 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3,
-                                              Game.WIDTH_BUTTON, 50])
 
+            button_2 = self.drawButtonNbPlayer(fenetre, 1)
+            button_3 = self.drawButtonNbPlayer(fenetre, 2)
+            button_4 = self.drawButtonNbPlayer(fenetre, 3)
+            button_5 = self.drawButtonNbPlayer(fenetre, 4)
 
-            for i in range(1,5):
+            for i in range(1, 5):
                 myfont = pygame.font.SysFont("monospace", 14)
                 label = myfont.render(str(i+1), 1, (0, 0, 0))
-                fenetre.blit(label, ((Game.WIDTH/5*i+label.get_width()/2,Game.HEIGHT/3)))
+                fenetre.blit(label, (Game.WIDTH/5*i+label.get_width()/2, Game.HEIGHT/3))
 
-
+                nbPlayer = 0
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         loop = False
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 250 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 166 < event.pos[0] < 266 and 240 < event.pos[1] < 290:
                         print("Players :2")
                         self.showGameScreen(playerColor, 2)
                         loop = False
 
-
-                    if event.type == pygame.MOUSEBUTTONDOWN and 250 < event.pos[0] < 450 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 382 < event.pos[0] < 482 and 240 < event.pos[1] < 290:
                         print("Players :3")
                         self.showGameScreen(playerColor, 3)
                         loop = False
 
-
-                    if event.type == pygame.MOUSEBUTTONDOWN and 450 < event.pos[0] < 700 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 598 < event.pos[0] < 698 and 240 < event.pos[1] < 290:
                         print("Players :4")
                         self.showGameScreen(playerColor, 4)
                         loop = False
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and 700 < event.pos[0] < 950 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 814 < event.pos[0] < 914 and 240 < event.pos[1] < 290:
                         print("Players :5")
                         self.showGameScreen(playerColor, 5)
                         loop = False
 
             pygame.display.flip()
-
-
-
-
-
-
 
     def showGameScreen(self, playerColor,IAnumber):
         clock = pygame.time.Clock()
@@ -134,9 +124,11 @@ class Game():
 
         colorList = [Game.PURPLE, Game.YELLOW, Game.GREEN, Game.BLUE, Game.RED]
 
-        for x in range(0, 50): # exchanges 2 positions 60 times => randomizes the list
-            pos1 = 0;
-            pos2 = 0;
+        # exchanges 2 positions 60 times => randomizes the list
+
+        for x in range(0, 50):
+            pos1 = 0
+            pos2 = 0
             while pos1 == pos2:
                 pos1 = random.randrange(0, 5, 1)
                 pos2 = random.randrange(0, 5, 1)
