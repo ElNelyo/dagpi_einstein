@@ -11,4 +11,22 @@ class Player:
                 self.myTeam = team
                 team.playerName = player1.Name
 
+    def displayTruc(self):
+        print("HELLO DARKNESS MY OLD FRIEND")
 
+
+class Human(Player):
+    def play(self):
+        return
+
+class AI(Player):
+    def play(self):
+        return
+
+class AIBasic(AI):
+    def play(self):
+        return
+
+class AIAdvanced(AI):
+    def play(self):
+        return
