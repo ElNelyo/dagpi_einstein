@@ -104,10 +104,6 @@ class Game():
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
 
-        myGameboard = Gameboard(1,IAnumber)
-        myGameboard = myGameboard.distribute()
-
-
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
 
 
