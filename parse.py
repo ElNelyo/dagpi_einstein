@@ -15,17 +15,15 @@ class Parse:
     inventionslist = xmldoc.getElementsByTagName('inventions')
     rewardlist = xmldoc.getElementsByTagName('rewards')
     teamlist = xmldoc.getElementsByTagName('team')
-    myListInventor = []
+
     myListInvention = []
     myListReward = []
     myListColor = []
     myListTeam = []
 
-    def getInventor(self):
-        return self.myListInventor
 
     def getInvention(self):
-        return self.myListInventor
+        return self.myListInvention
 
     def getReward(self):
         return self.myListReward
@@ -44,7 +42,7 @@ class Parse:
             self.myListColor.append(myColor)
             inventorList = item.getElementsByTagName('inventors')
             for inventor in inventorList:
-                listTruc = []
+                listInventorsFromSingleTeam = []
                 invlist = inventor.getElementsByTagName('inventor')
                 for inv in invlist:
 
@@ -74,7 +72,7 @@ class Parse:
                     strPoints = points[0].firstChild.nodeValue
                     # Inventor object
                     myInventor = Inventor.Inventor(strName, strPoints, startknowledge, targetknowledge)
-                    listTruc.append(myInventor)
+                    listInventorsFromSingleTeam.append(myInventor)
 
                     #Bon inventeur avec bonne team
                     print(myInventor.name)
@@ -89,7 +87,7 @@ class Parse:
                     print("\n   [Target Points]")
                     print("   " + myInventor.points)
                     print(" ")
-                myTeam = Team.Team(listTruc, myColor)
+                myTeam = Team.Team(listInventorsFromSingleTeam, myColor)
                 self.myListTeam.append(myTeam)
                 """"for team in myTeam.inventors:
                 print("LDOKDODSOKDKS33"+team.name[0].firstChild.nodeValue)
