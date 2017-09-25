@@ -6,6 +6,9 @@ import random
 class Gameboard:
     age = 0
     cardsOnBoard = []
+    playersOnBoard = []
+
+
     def __init__(self, tour, nbPlayer):
         self.tour = tour
         self.age = 1
@@ -38,6 +41,24 @@ class Gameboard:
                 cards.remove(myCard)
                 cpt += 1
 
-        
+    def wakeUp(self,player, coffee, inventor):
+        if coffee and inventor==false:
+            for inventor in player.myTeam.inventors:
+                inventor.sleep=False
+        else:
+            inventor.sleep = True
+
+
+
+    """def truc(self):
+        for card in self.cardsOnBoard:
+            print("----------------------")
+            print(card.name)
+            for knowl in card.knowledge:
+                print(knowl)
+    """
+
+
+
 
 
