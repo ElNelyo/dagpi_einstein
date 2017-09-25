@@ -106,7 +106,7 @@ class Game():
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
 
-        self.loadPlayersBackgrounds(fenetre, fondCard, playerColor)
+        self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
 
 # exchanges 2 items of a list
 
@@ -118,7 +118,7 @@ class Game():
 
 # Places the player in the bottom right corner and randomizes other players position
 
-    def placeColors(self, strPlayerColor):
+    def placeColors(self, strPlayerColor, IANumber):
 
         if strPlayerColor == "green":
             playerColor = Game.GREEN
@@ -149,9 +149,12 @@ class Game():
         if pos != 4:
             colorList = self.exchangeList(colorList, pos, 4)
 
+        for i in range(0, 5-IANumber):
+            colorList.pop(0)
+
         return colorList
 
-    def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor):
+    def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
         #Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
         fenetre.blit(backgroundCard, (0, 0))
@@ -162,7 +165,7 @@ class Game():
 
         loop = True
 
-        colorList = self.placeColors(playerColor) #Place the player in the bottom right corner and
+        colorList = self.placeColors(playerColor, IANumber) #Place the player in the bottom right corner and
                                                     #randomize other players position
 
         white_color = Game.WHITE
@@ -192,19 +195,24 @@ class Game():
             # Draw a rectangle outline for each player area
 
             mouse_xy = pygame.mouse.get_pos()
+
             player1 = pygame.draw.rect(fenetre, colorList[0], [0, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-
-
-            player2 = pygame.draw.rect(fenetre, colorList[1], [Game.WINDOW_WIDTH, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+            if IANumber > 2:
+                player2 = pygame.draw.rect(fenetre, colorList[1], [Game.WINDOW_WIDTH, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
 
-            player3 = pygame.draw.rect(fenetre, colorList[2], [Game.WINDOW_WIDTH*2, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+            if IANumber > 3:
+                player3 = pygame.draw.rect(fenetre, colorList[2], [Game.WINDOW_WIDTH*2, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-            player4 = pygame.draw.rect(fenetre, colorList[3], [Game.WINDOW_WIDTH*3,0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
+
+            if IANumber > 4:
+                player4 = pygame.draw.rect(fenetre, colorList[3], [Game.WINDOW_WIDTH*3,0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
                                           5)
-            myplayer = pygame.draw.rect(fenetre, colorList[4], [Game.WINDOW_WIDTH*3, Game.WINDOW_HEIGHT+3, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT-5],
+
+            myplayer = pygame.draw.rect(fenetre, colorList[IANumber-1], [Game.WINDOW_WIDTH*3, Game.WINDOW_HEIGHT+3, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT-5],
                                           5)
+
             # Draw a rectangle outline representing the gameboard with inventions cards
             board = pygame.draw.rect(fenetre,white_color,[0,Game.WINDOW_HEIGHT+5,Game.WINDOW_WIDTH*3-5,Game.WINDOW_HEIGHT-6],
                                           5)
