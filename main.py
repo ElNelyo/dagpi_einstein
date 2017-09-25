@@ -4,8 +4,6 @@ import parse
 import pygame
 import random
 
-
-
 class Game():
     CIEL = 0, 200, 255
     BLUE = 0, 102, 255
@@ -23,7 +21,7 @@ class Game():
     def __init__(self):
         pygame.init()
 
-    def getMyInventors(self,colour):
+    def getMyInventors(self, colour):
         myparse = parse.Parse()
         myteam = myparse.getTeam()
         for team in myteam:
@@ -65,28 +63,27 @@ class Game():
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         loop = False
-                    # si clic, le vert devient rouge
 
                     if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 250 and 150 < event.pos[1] < 250:
                         print("Players :2")
-                        self.showGameScreen(playerColor,2)
+                        self.showGameScreen(playerColor, 2)
                         loop = False
 
 
                     if event.type == pygame.MOUSEBUTTONDOWN and 250 < event.pos[0] < 450 and 150 < event.pos[1] < 250:
                         print("Players :3")
-                        self.showGameScreen(playerColor,3)
+                        self.showGameScreen(playerColor, 3)
                         loop = False
 
 
                     if event.type == pygame.MOUSEBUTTONDOWN and 450 < event.pos[0] < 700 and 150 < event.pos[1] < 250:
                         print("Players :4")
-                        self.showGameScreen(playerColor,4)
+                        self.showGameScreen(playerColor, 4)
                         loop = False
 
                     if event.type == pygame.MOUSEBUTTONDOWN and 700 < event.pos[0] < 950 and 150 < event.pos[1] < 250:
                         print("Players :5")
-                        self.showGameScreen(playerColor,5)
+                        self.showGameScreen(playerColor, 5)
                         loop = False
 
             pygame.display.flip()
@@ -154,6 +151,90 @@ class Game():
 
         return colorList
 
+
+    def fromRGBtoSTRINGList(self, list, size):
+        returnList = []
+        for i in range(0, size):
+            if list[i] == Game.GREEN:
+                returnList.append("green")
+            elif list[i] == Game.RED:
+                returnList.append("red")
+            elif list[i] == Game.YELLOW:
+                returnList.append("yellow")
+            elif list[i] == Game.PURPLE:
+                returnList.append("purple")
+            elif list[i] == Game.BLUE:
+                returnList.append("blue")
+        return returnList
+
+    def displayKnowledge(self, myfont, knowledge, fenetre, namePos, offset, i):
+        label = myfont.render(knowledge, 1, (0, 0, 0))
+        fenetre.blit(label, (namePos[0] + offset, namePos[1] + (5 + i) * 12))
+
+    def displayInventors(self, intPlayer, colorListString, originPosition, fenetre):
+
+        oneLine = 12
+        fonting_space = 40
+        knowledge_space = 90
+        inventors = self.getMyInventors(colorListString[intPlayer])
+        namePos = [originPosition[0] + fonting_space, originPosition[1] + 30]
+
+        myfont = pygame.font.SysFont("bitstreamverasans", 12)
+
+        knowledgeLegend = ["Ph :", "Ch :", "Me :", "Ma :", "Vpt :"]
+
+        toAddToI = 5
+
+        for i in range(0, 5): #display the legend
+
+            label = myfont.render(knowledgeLegend[i], 1, (0, 0, 0))
+            if i == 4:
+                toAddToI = 6
+            fenetre.blit(label, (namePos[0] - 30, namePos[1] + (toAddToI + i) * oneLine))
+
+        for inventor in inventors:
+
+            namePos = [originPosition[0] + fonting_space, originPosition[1] + 30]
+
+            name = inventor.name.split() #separates fist and last name into a list
+
+            vPoints = inventor.points
+
+            myfont = pygame.font.SysFont("bitstreamverasans", 9)
+
+            label1 = myfont.render(name[0], 1, (0, 0, 0))
+            if len(name) > 1:
+                label2 = myfont.render(name[1], 1, (0, 0, 0))
+            if len(name) > 2:
+                label3 = myfont.render(name[2], 1, (0, 0, 0))
+
+            if len(name) > 0:
+                fenetre.blit(label1, (namePos[0], namePos[1]))
+            if len(name) > 1:
+                fenetre.blit(label2, (namePos[0], namePos[1] + oneLine))
+            if len(name) > 2:
+                fenetre.blit(label3, (namePos[0], namePos[1] + oneLine*2))
+
+            fonting_space += 61
+
+            myfont = pygame.font.SysFont("bitstreamverasans", 9)
+
+            startTargetLegend = [["CP", [namePos[0], namePos[1] + 4*oneLine]],
+                                 ["TP", [namePos[0] + 20, namePos[1] + 4*oneLine]]]
+
+            for legend in startTargetLegend:
+                label = myfont.render(legend[0], 1, (0, 0, 0))
+                fenetre.blit(label, legend[1])
+
+            myfont = pygame.font.SysFont("bitstreamverasans", 14)
+
+            for i in range(0, 4):
+                self.displayKnowledge(myfont, str(inventor.startknowledge[i]), fenetre, namePos, 0, i)
+                self.displayKnowledge(myfont, str(inventor.targetknowledge[i]), fenetre, namePos, 20, i)
+
+            label = myfont.render(vPoints, 1, (0, 0, 0))
+            fenetre.blit(label, (namePos[0], namePos[1] + (7 + i) * oneLine))
+
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
         #Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
@@ -163,30 +244,28 @@ class Game():
         fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH*3), 0))
         fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH*3), Game.WINDOW_HEIGHT))
 
+        playerPositions = [[0, 0]]
+        if IANumber > 2:
+            playerPositions.append([int(Game.WINDOW_WIDTH), 0])
+        if IANumber > 3:
+            playerPositions.append([int(Game.WINDOW_WIDTH*2), 0])
+        if IANumber > 4:
+            playerPositions.append([int(Game.WINDOW_WIDTH*3), 0])
+        playerPositions.append([int(Game.WINDOW_WIDTH*3), int(Game.WINDOW_HEIGHT)])
+
+        print(playerPositions)
+
         loop = True
 
         colorList = self.placeColors(playerColor, IANumber) #Place the player in the bottom right corner and
                                                     #randomize other players position
 
         white_color = Game.WHITE
-        myplayer_inventors = self.getMyInventors(playerColor)
-        fonting_space = 90
-        knowledge_space = 90
 
-        for myinventor in myplayer_inventors:
-            myfont = pygame.font.SysFont("bitstreamverasans", 9)
-            label = myfont.render(myinventor.name, 1, (0, 0, 0))
-            fenetre.blit(label, ((Game.WIDTH-fonting_space, Game.HEIGHT-350)))
-            fonting_space+=60
-            for i in range(0,4):
-                label = myfont.render(str(myinventor.startknowledge[i]), 1, (0, 0, 0))
-                fenetre.blit(label, ((Game.WIDTH - knowledge_space, Game.HEIGHT - 350)))
-                knowledge_space += 60
+        colorListString = self.fromRGBtoSTRINGList(colorList, len(colorList))
 
-
-
-
-
+        for player in range(0, IANumber):
+            self.displayInventors(player, colorListString, playerPositions[player], fenetre)
 
         while loop:
 
@@ -277,7 +356,6 @@ class Game():
                 if event.type == pygame.QUIT:
 
                     loop = False
-                # si clic, le vert devient rouge
 
                 if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 200 and 150 < event.pos[1] < 250:
                         print("Green team")
@@ -309,19 +387,15 @@ class Game():
             pygame.display.flip()
             # 10 fps
 
-    def getMyTeam(self,colour):
+    def getMyTeam(self, colour):
         myparse = parse.Parse()
         myteams = myparse.getTeam()
         for team in myteams:
 
-            if(team.color==colour):
+            if team.color==colour:
                 for inv in team.inventors:
                     print("Inventor added :"+inv.name)
                 return team
-
-
-
-
 
 myGame = Game()
 myGame.loadSettingMenu()
