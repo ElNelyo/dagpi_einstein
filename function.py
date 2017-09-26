@@ -66,28 +66,44 @@ def goToSleep(myInventor):
     currentPlayer= firstPlayer
 '''
 
-
+#Return a list of possible actions for a user on a team
 def all_possible_action(myTeam, myCardBoard):
     allPossibleAction = []
-    listinventionsfinventor=[]
+    cptAwake = 0
     for inventor in myTeam.inventors:
-        print(myTeam)
-        print(inventor.name)
-        alpha = inventor.boardCardsForInventor(myCardBoard)
-        listinventionsfinventor.append(alpha)
-        print('BIGBLOP')
-        for inventionZ in alpha:
-            print(inventionZ.name)
-            ioilist=[]
-            ioilist.append(Action.IOI)
-            ioilist.append(inventor)
-            ioilist.append(inventionZ)
-            allPossibleAction.append(ioilist)
+        if not inventor.sleep:
+            #listCompatibleInventions est la liste d'inventions du plateau compatible avec l'inventeur
+            listCompatibleInventions = inventor.boardCardsForInventor(myCardBoard)
+            for invention in listCompatibleInventions:
+                ioilist=[]
+                ioilist.append(Action.IOI)
+                ioilist.append(inventor)
+                ioilist.append(invention)
+                allPossibleAction.append(ioilist)
+
+        if inventor.sleep==True:
+            cptAwake +=1
+
+    if cptAwake>0:
+        awakeList = []
+        awakeList.append(Action.AWAKE)
+        awakeList.append("Recycle")
+        allPossibleAction.append(awakeList)
+        awakeList = []
+        awakeList.append(Action.AWAKE)
+        awakeList.append("Coffee")
+        allPossibleAction.append(awakeList)
+
+
     for a in allPossibleAction:
         print(a[0].name)
         print(a[1].name)
         print(a[2].name)
     print(allPossibleAction)
+
+    for team in parse.Parse.myListTeam:
+        print(team.color)
+
 
 '''
         all_possible_action.append(liste(inventeur/invention/liste [0,0,0,0]
