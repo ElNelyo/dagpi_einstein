@@ -123,7 +123,8 @@ class Parse:
 
                 # Invention Object
                 nametmp = name[0].firstChild.nodeValue
-                myInvention = Invention.Invention(nametmp, classification, knowledge)
+                myClassification = classification[0].firstChild.nodeValue
+                myInvention = Invention.Invention(nametmp, myClassification, knowledge)
                 self.myListInvention.append(myInvention)
 
 
