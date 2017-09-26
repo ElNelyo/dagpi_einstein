@@ -452,6 +452,8 @@ class Game():
         self.displayToken(fenetre)
         button1Settings = self.displayButton(fenetre, "PlaceCube",
                                              Game.WIDTH/2, Game.HEIGHT/2 + 30, 100, 50, 14, Game.WHITE)
+        buttonCoffee = self.displayButton(fenetre, "Coffee",
+                                             Game.WIDTH/2, Game.HEIGHT/10*9 + 30, 60, 20, 14, Game.WHITE)
 
 
 
