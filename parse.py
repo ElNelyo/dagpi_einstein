@@ -52,8 +52,8 @@ class Parse:
                     startmathematics = inv.getElementsByTagName('mathematics')  # Get maths knowledge
                     startchemistry = inv.getElementsByTagName('chemistry')  # Get chemistry knowledge
                     startmechanics = inv.getElementsByTagName('mechanics')  # Get mechanics knowledge
-                    # startknowledge var in inventor class
-                    startknowledge = [int(startphysics[0].firstChild.nodeValue),
+                    # currentKnowledge var in inventor class
+                    currentKnowledge = [int(startphysics[0].firstChild.nodeValue),
                                       int(startchemistry[0].firstChild.nodeValue),
                                       int(startmechanics[0].firstChild.nodeValue),
                                       int(startmathematics[0].firstChild.nodeValue)]
@@ -71,7 +71,7 @@ class Parse:
                     strName = name[0].firstChild.nodeValue
                     strPoints = points[0].firstChild.nodeValue
                     # Inventor object
-                    myInventor = Inventor.Inventor(strName, strPoints, startknowledge, targetknowledge)
+                    myInventor = Inventor.Inventor(strName, strPoints, currentKnowledge, targetknowledge)
                     listInventorsFromSingleTeam.append(myInventor)
 
                     #Bon inventeur avec bonne team
@@ -81,7 +81,7 @@ class Parse:
                     print("[Inventor]")
                     print(myInventor.name)
                     print("\n   [Start Knowledge]")
-                    print("   " + str(startknowledge))
+                    print("   " + str(currentKnowledge))
                     print("\n   [Target Knowledge]")
                     print("   " + str(targetknowledge))
                     print("\n   [Target Points]")
@@ -123,7 +123,8 @@ class Parse:
 
                 # Invention Object
                 nametmp = name[0].firstChild.nodeValue
-                myInvention = Invention.Invention(nametmp, classification, knowledge)
+                myClassification = classification[0].firstChild.nodeValue
+                myInvention = Invention.Invention(nametmp, myClassification, knowledge)
                 self.myListInvention.append(myInvention)
 
 
