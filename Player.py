@@ -1,9 +1,11 @@
 import parse
 class Player:
 
-    def __init__(self, name, ia):
+    def __init__(self, name, ia, associatedTeam,active):
         self.Name = name
         self.IA = ia
+        self.associatedTeam = None
+        self.active = False
 
     def chooseTeam(colorChose):
         for team in parse.Parse.myListTeam:
