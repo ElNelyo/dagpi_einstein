@@ -450,14 +450,20 @@ class Game():
 
         self.displayCards(cards, fenetre)
         self.displayToken(fenetre)
+
+        # Top Button
         button1Settings = self.displayButton(fenetre, "PlaceCube",
                                              Game.WIDTH/2, Game.HEIGHT/2 + 30, 100, 50, 14, Game.WHITE)
+        buttonAddKnowledge = self.displayButton(fenetre, "Add knowledge",
+                                             Game.WIDTH/2, Game.HEIGHT/10*7 + 30, 100, 50, 14, Game.WHITE)
+
+        # Bottom Buttons
         buttonCoffee = self.displayButton(fenetre, "Coffee",
                                              Game.WIDTH/2, Game.HEIGHT/10*9 + 30, 60, 20, 14, Game.WHITE)
         buttonRecycle = self.displayButton(fenetre, "Recycle",
                                              Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH/3, Game.HEIGHT/10*9 + 30, 60, 20, 14, Game.WHITE)
         buttonNext = self.displayButton(fenetre, "Next",
-                                             Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH/3*2, Game.HEIGHT/10*9 + 30, 60, 20, 14, Game.RED)
+                                        Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH/3*2, Game.HEIGHT/10*9 + 30, 60, 20, 14, Game.RED)
 
 
         while loop:
