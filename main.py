@@ -5,6 +5,7 @@ import pygame
 import random
 from Gameboard import Gameboard
 
+
 class Game():
     CIEL = 0, 200, 255
     BLUE = 0, 102, 255
@@ -41,7 +42,7 @@ class Game():
         fenetre.blit(background, (0, 0))
         myfont = pygame.font.SysFont("monospace", 52)
         label = myfont.render("Select max numbers of players  ", 1, (0, 0, 0))
-        fenetre.blit(label, (Game.WIDTH / 2-label.get_width()/2, Game.HEIGHT / 4-label.get_height()))
+        fenetre.blit(label, (Game.WIDTH / 2 - label.get_width() / 2, Game.HEIGHT / 4 - label.get_height()))
 
         loop = True
 
@@ -54,8 +55,8 @@ class Game():
 
             for i in range(1, 5):
                 myfont = pygame.font.SysFont("monospace", 14)
-                label = myfont.render(str(i+1), 1, (0, 0, 0))
-                fenetre.blit(label, (Game.WIDTH/5*i+label.get_width()/2, Game.HEIGHT/3))
+                label = myfont.render(str(i + 1), 1, (0, 0, 0))
+                fenetre.blit(label, (Game.WIDTH / 5 * i + label.get_width() / 2, Game.HEIGHT / 3))
 
                 nbPlayer = 0
 
@@ -85,7 +86,7 @@ class Game():
 
             pygame.display.flip()
 
-    def showGameScreen(self, playerColor,IAnumber):
+    def showGameScreen(self, playerColor, IAnumber):
         clock = pygame.time.Clock()
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
@@ -96,10 +97,7 @@ class Game():
 
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
 
-
-
-
-# exchanges 2 items of a list
+    # exchanges 2 items of a list
 
     def exchangeList(self, list, pos1, pos2):
         tmp = list[pos1]
@@ -107,7 +105,7 @@ class Game():
         list[pos2] = tmp
         return list
 
-# Places the player in the bottom right corner and randomizes other players position
+    # Places the player in the bottom right corner and randomizes other players position
 
     def placeColors(self, strPlayerColor, IANumber):
 
@@ -142,11 +140,10 @@ class Game():
         if pos != 4:
             colorList = self.exchangeList(colorList, pos, 4)
 
-        for i in range(0, 5-IANumber):
+        for i in range(0, 5 - IANumber):
             colorList.pop(0)
 
         return colorList
-
 
     def fromRGBtoSTRINGList(self, list, size):
         returnList = []
@@ -181,7 +178,7 @@ class Game():
 
         toAddToI = 5
 
-        for i in range(0, 5): #display the legend
+        for i in range(0, 5):  # display the legend
 
             label = myfont.render(knowledgeLegend[i], 1, (0, 0, 0))
             if i == 4:
@@ -211,14 +208,14 @@ class Game():
             if len(name) > 1:
                 fenetre.blit(label2, (namePos[0], namePos[1] + oneLine))
             if len(name) > 2:
-                fenetre.blit(label3, (namePos[0], namePos[1] + oneLine*2))
+                fenetre.blit(label3, (namePos[0], namePos[1] + oneLine * 2))
 
             fonting_space += 61
 
             myfont = pygame.font.SysFont("bitstreamverasans", 9)
 
-            startTargetLegend = [["CP", [namePos[0], namePos[1] + 4*oneLine]],
-                                 ["TP", [namePos[0] + 20, namePos[1] + 4*oneLine]]]
+            startTargetLegend = [["CP", [namePos[0], namePos[1] + 4 * oneLine]],
+                                 ["TP", [namePos[0] + 20, namePos[1] + 4 * oneLine]]]
 
             for legend in startTargetLegend:
                 label = myfont.render(legend[0], 1, (0, 0, 0))
@@ -241,6 +238,7 @@ class Game():
         height = int(self.HEIGHT / 4)  # 1/4 of the screen height
         tokenOnBoard = Gameboard.emplacementOnBoard
         myfonttoken = pygame.font.SysFont("bitstreamverasans", 10)
+
         i = 0
         for token in tokenOnBoard:
             print("=========================")
@@ -248,7 +246,7 @@ class Game():
             print(token[1].type)
             print(token[2].type)
 
-            if i>3 :
+            if i > 3:
                 line = 3
 
             if token[1].type[:-1] == "pointreward":
@@ -259,26 +257,25 @@ class Game():
                 token2 = myfonttoken.render(str("Pt" + token[2].type[-1]), 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-
-            if token[1].type[:-1]== "progressreward":
-                token1 = myfonttoken.render(str("P"+token[1].type[-1]), 1, (0, 0, 0))
+            if token[1].type[:-1] == "progressreward":
+                token1 = myfonttoken.render(str("P" + token[1].type[-1]), 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[2].type[:-1]== "progressreward":
-                token2 = myfonttoken.render(str("P"+token[2].type[-1]), 1, (0, 0, 0))
+            if token[2].type[:-1] == "progressreward":
+                token2 = myfonttoken.render(str("P" + token[2].type[-1]), 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[1].type== "availabilityreward":
+            if token[1].type == "availabilityreward":
                 token1 = myfonttoken.render("AV", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
-            if token[2].type== "availabilityreward":
+            if token[2].type == "availabilityreward":
                 token2 = myfonttoken.render("AV", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[1].type == "additionalknowledgereward":
+            if token[1].type == "additionalknowledger":
                 token1 = myfonttoken.render("AK", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
-            if token[2].type == "additionalknowledgereward":
+            if token[2].type == "additionalknowledger":
                 token2 = myfonttoken.render("AK", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
@@ -288,120 +285,147 @@ class Game():
             if token[2].type == "classificationreward":
                 token2 = myfonttoken.render("Cl", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
-            i+=1
 
-
+            i += 1
 
     def displayCards(self, cards, fenetre):
 
         rectSize = 16
-
         positions = []
-
         myfont = pygame.font.SysFont("bitstreamverasans", 10)
-
-        height = int(self.HEIGHT/4) # 1/4 of the screen height
-
         line = 2
+        height = int(self.HEIGHT / 4)  # 1/4 of the screen height
+
+
+
+
+
+
+        height = int(self.HEIGHT / 4)  # 1/4 of the screen height
+
+
 
         for i in range(0, len(cards)):
             if i > 3:
                 line = 3
-            positions.append([int(30 + int(i % 4)*(self.WIDTH/8)), line*height + 30])
+            positions.append([int(30 + int(i % 4) * (self.WIDTH / 8)), line * height + 30])
             label = myfont.render(cards[i].name, 1, (0, 0, 0))
 
+            fenetre.blit(label, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 30))
 
-            fenetre.blit(label, (30 + int((i % 4)*(self.WIDTH/8)), line*height + 30))
+
 
         myfont = pygame.font.SysFont("bitstreamverasans", 14)
+        knowledgeLegend = ["Ph :", "Ch :", "Me :", "Ma :"]
+
+
 
         for i in range(0, len(cards)):
-            heightoffest = 30
+            heightoffest = 20
+            heightknow = 5
+
+
             for kn in cards[i].knowledge:
                 widthoffset = 0
+
                 for j in range(0, kn):
-                    pygame.draw.rect(fenetre, Game.WHITE, [positions[i][0] + widthoffset, positions[i][1] + heightoffest,
-                                                           rectSize, rectSize])
+
+                    pygame.draw.rect(fenetre, Game.WHITE,
+                                     [positions[i][0] + widthoffset, positions[i][1] + heightoffest,
+                                      rectSize, rectSize])
                     widthoffset += (rectSize + 2)
-                heightoffest += (rectSize +2)
+
+                heightoffest += (rectSize + 2)
+            if i>4:
+                for i in range(0, 4):
+                    heightknow = 20
+                    for j in range(0, 4):
+                        myfont = pygame.font.SysFont("monospace", 12)
+                        label = myfont.render(knowledgeLegend[j], 1, (0, 0, 0))
+                        fenetre.blit(label, (positions[i][0] - 25, positions[i][1] + heightknow))
+                        heightknow += 19
+            else:
+                for i in range(i, len(cards)-4):
+                    heightknow = 20
+                    for j in range(0, 4):
+                        myfont = pygame.font.SysFont("monospace", 12)
+                        label = myfont.render(knowledgeLegend[j], 1, (0, 0, 0))
+                        fenetre.blit(label, (positions[i][0] - 25, positions[i][1] + heightknow +178))
+                        heightknow += 19
 
 
 
-        # print(cards[0].knowledge)
 
-
-
-
+                # print(cards[0].knowledge)
 
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
-        #Display Backgrounds for players emplacements
+        # Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
         fenetre.blit(backgroundCard, (0, 0))
         fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH), 0))
-        fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH*2), 0))
-        fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH*3), 0))
-        fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH*3), Game.WINDOW_HEIGHT))
+        fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH * 2), 0))
+        fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH * 3), 0))
+        fenetre.blit(backgroundCard, (int(Game.WINDOW_WIDTH * 3), Game.WINDOW_HEIGHT))
 
         playerPositions = [[0, 0]]
         if IANumber > 2:
             playerPositions.append([int(Game.WINDOW_WIDTH), 0])
         if IANumber > 3:
-            playerPositions.append([int(Game.WINDOW_WIDTH*2), 0])
+            playerPositions.append([int(Game.WINDOW_WIDTH * 2), 0])
         if IANumber > 4:
-            playerPositions.append([int(Game.WINDOW_WIDTH*3), 0])
-        playerPositions.append([int(Game.WINDOW_WIDTH*3), int(Game.WINDOW_HEIGHT)])
+            playerPositions.append([int(Game.WINDOW_WIDTH * 3), 0])
+        playerPositions.append([int(Game.WINDOW_WIDTH * 3), int(Game.WINDOW_HEIGHT)])
 
         loop = True
 
-        colorList = self.placeColors(playerColor, IANumber) #Place the player in the bottom right corner and
-                                                    #randomize other players position
+        colorList = self.placeColors(playerColor, IANumber)  # Place the player in the bottom right corner and
+        # randomize other players position
 
         white_color = Game.WHITE
 
         colorListString = self.fromRGBtoSTRINGList(colorList, len(colorList))
 
-# Display the inventors infos
-
-        for player in range(0, IANumber):
-            self.displayInventors(player, colorListString, playerPositions[player], fenetre)
-
-# Display the cards
-
+        # Display the inventors infos
         gameboard = Gameboard(1, IANumber)
         cards = gameboard.distribute()
-        #135 = WIDHT / 8
-
+        for player in range(0, IANumber):
+            self.displayInventors(player, colorListString, playerPositions[player], fenetre)
         self.displayCards(cards, fenetre)
         self.displayToken(fenetre)
 
         while loop:
-
 
             pygame.display.flip()
             # Draw a rectangle outline for each player area
 
             mouse_xy = pygame.mouse.get_pos()
 
-            player1 = pygame.draw.rect(fenetre, colorList[0], [0, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
-                                          5)
+            player1 = pygame.draw.rect(fenetre, colorList[0], [0, 0, Game.WINDOW_WIDTH - 3, Game.WINDOW_HEIGHT],
+                                       5)
             if IANumber > 2:
-                player2 = pygame.draw.rect(fenetre, colorList[1], [Game.WINDOW_WIDTH, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
-                                          5)
+                player2 = pygame.draw.rect(fenetre, colorList[1],
+                                           [Game.WINDOW_WIDTH, 0, Game.WINDOW_WIDTH - 3, Game.WINDOW_HEIGHT],
+                                           5)
 
             if IANumber > 3:
-                player3 = pygame.draw.rect(fenetre, colorList[2], [Game.WINDOW_WIDTH*2, 0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
-                                          5)
+                player3 = pygame.draw.rect(fenetre, colorList[2],
+                                           [Game.WINDOW_WIDTH * 2, 0, Game.WINDOW_WIDTH - 3, Game.WINDOW_HEIGHT],
+                                           5)
 
             if IANumber > 4:
-                player4 = pygame.draw.rect(fenetre, colorList[3], [Game.WINDOW_WIDTH*3,0, Game.WINDOW_WIDTH-3, Game.WINDOW_HEIGHT],
-                                          5)
+                player4 = pygame.draw.rect(fenetre, colorList[3],
+                                           [Game.WINDOW_WIDTH * 3, 0, Game.WINDOW_WIDTH - 3, Game.WINDOW_HEIGHT],
+                                           5)
 
-            myplayer = pygame.draw.rect(fenetre, colorList[IANumber-1], [Game.WINDOW_WIDTH*3, Game.WINDOW_HEIGHT+3, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT-5],
-                                          5)
+            myplayer = pygame.draw.rect(fenetre, colorList[IANumber - 1],
+                                        [Game.WINDOW_WIDTH * 3, Game.WINDOW_HEIGHT + 3, Game.WINDOW_WIDTH,
+                                         Game.WINDOW_HEIGHT - 5],
+                                        5)
 
             # Draw a rectangle outline representing the gameboard with inventions cards
-            board = pygame.draw.rect(fenetre,white_color,[0,Game.WINDOW_HEIGHT+5,Game.WINDOW_WIDTH*3-5,Game.WINDOW_HEIGHT-6],
-                                          5)
+            board = pygame.draw.rect(fenetre, white_color,
+                                     [0, Game.WINDOW_HEIGHT + 5, Game.WINDOW_WIDTH * 3 - 5, Game.WINDOW_HEIGHT - 6],
+                                     5)
             # return 1 if cursor above rectangle
 
 
@@ -411,12 +435,12 @@ class Game():
                 if event.type == pygame.QUIT:
                     loop = False
                 # si clic, le vert devient rouge
-                elif event.type == pygame.MOUSEBUTTONDOWN :
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     green_color = Game.RED
                 # le rectangle se cache
                 elif event.type == pygame.MOUSEBUTTONDOWN and over_white:
                     white_color = Game.CIEL
-                # Actualisation de l'affichage
+                    # Actualisation de l'affichage
             pygame.display.flip()
             # 10 fps
 
@@ -428,12 +452,21 @@ class Game():
         background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
         fenetre.blit(background, (0, 0))
 
-
-        button_green = pygame.draw.rect(fenetre, Game.GREEN, [Game.WIDTH/6-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
-        button_red = pygame.draw.rect(fenetre, Game.RED,[Game.WIDTH / 6*4 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4, Game.WIDTH_BUTTON, 50])
-        button_blue = pygame.draw.rect(fenetre, Game.BLUE, [Game.WIDTH/6*2-Game.WIDTH_BUTTON/2, Game.HEIGHT/4,Game. WIDTH_BUTTON, 50])
-        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW, [Game.WIDTH/6*3-Game.WIDTH_BUTTON/2, Game.HEIGHT/4, Game.WIDTH_BUTTON, 50])
-        button_purple = pygame.draw.rect(fenetre, Game.PURPLE, [Game.WIDTH/6*5-Game.WIDTH_BUTTON/2, Game.HEIGHT /4, Game.WIDTH_BUTTON, 50])
+        button_green = pygame.draw.rect(fenetre, Game.GREEN,
+                                        [Game.WIDTH / 6 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4, Game.WIDTH_BUTTON,
+                                         50])
+        button_red = pygame.draw.rect(fenetre, Game.RED,
+                                      [Game.WIDTH / 6 * 4 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4, Game.WIDTH_BUTTON,
+                                       50])
+        button_blue = pygame.draw.rect(fenetre, Game.BLUE,
+                                       [Game.WIDTH / 6 * 2 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4, Game.WIDTH_BUTTON,
+                                        50])
+        button_yellow = pygame.draw.rect(fenetre, Game.YELLOW,
+                                         [Game.WIDTH / 6 * 3 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4,
+                                          Game.WIDTH_BUTTON, 50])
+        button_purple = pygame.draw.rect(fenetre, Game.PURPLE,
+                                         [Game.WIDTH / 6 * 5 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 4,
+                                          Game.WIDTH_BUTTON, 50])
 
         myParse = parse.Parse()
         myColor = parse.Parse.getColor(myParse)
@@ -442,54 +475,51 @@ class Game():
         for item in myColor:
             myfont = pygame.font.SysFont("monospace", 14)
             label = myfont.render(item, 1, (0, 0, 0))
-            fenetre.blit(label, ((Game.WIDTH/6*fontcompt-Game.WIDTH_BUTTON/2+label.get_width()/2,Game.HEIGHT/4)))
+            fenetre.blit(label, (
+            (Game.WIDTH / 6 * fontcompt - Game.WIDTH_BUTTON / 2 + label.get_width() / 2, Game.HEIGHT / 4)))
             fontcompt += 1
 
         myfont = pygame.font.SysFont("monospace", 52)
         # render text
         label = myfont.render("Select a player!", 1, (0, 0, 0))
-        fenetre.blit(label, ((Game.WIDTH-label.get_width())/2 , Game.HEIGHT/5 -label.get_height()))
+        fenetre.blit(label, ((Game.WIDTH - label.get_width()) / 2, Game.HEIGHT / 5 - label.get_height()))
         loop = True
-
-
 
         while loop:
 
             pygame.display.flip()
             mouse_xy = pygame.mouse.get_pos()
 
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-
                     loop = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 200 and 150 < event.pos[1] < 250:
-                        print("Green team")
-                        self.getMyTeam("green")
-                        self.selectIANumber("green")
-                        loop = False
-                if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[0] < 400  and 150 < event.pos[1] < 250:
-                        print("Blue team")
-                        self.getMyTeam("blue")
-                        self.selectIANumber("blue")
-                        loop = False
+                    print("Green team")
+                    self.getMyTeam("green")
+                    self.selectIANumber("green")
+                    loop = False
+                if event.type == pygame.MOUSEBUTTONDOWN and 200 < event.pos[0] < 400 and 150 < event.pos[1] < 250:
+                    print("Blue team")
+                    self.getMyTeam("blue")
+                    self.selectIANumber("blue")
+                    loop = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN and 400 < event.pos[0] < 600 and 150 < event.pos[1] < 250:
-                        print("Yellow team")
-                        self.getMyTeam("yellow")
-                        self.selectIANumber("yellow")
-                        loop = False
+                    print("Yellow team")
+                    self.getMyTeam("yellow")
+                    self.selectIANumber("yellow")
+                    loop = False
                 if event.type == pygame.MOUSEBUTTONDOWN and 600 < event.pos[0] < 800 and 150 < event.pos[1] < 250:
-                        print("Red team")
-                        self.getMyTeam("red")
-                        self.selectIANumber("red")
+                    print("Red team")
+                    self.getMyTeam("red")
+                    self.selectIANumber("red")
 
                 if event.type == pygame.MOUSEBUTTONDOWN and 800 < event.pos[0] < 1000 and 150 < event.pos[1] < 250:
-                        print("Purple team")
-                        self.getMyTeam("purple")
-                        self.selectIANumber("purple")
-                        loop = False
+                    print("Purple team")
+                    self.getMyTeam("purple")
+                    self.selectIANumber("purple")
+                    loop = False
 
             pygame.display.flip()
             # 10 fps
@@ -499,13 +529,11 @@ class Game():
         myteams = myparse.getTeam()
         for team in myteams:
 
-            if team.color==colour:
+            if team.color == colour:
                 for inv in team.inventors:
-                    print("Inventor added :"+inv.name)
+                    print("Inventor added :" + inv.name)
                 return team
+
 
 myGame = Game()
 myGame.loadSettingMenu()
-
-
-
