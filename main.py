@@ -271,10 +271,7 @@ class Game():
 
         i = 0
         for token in tokenOnBoard:
-            print("=========================")
-            print(token[0].name)
-            print(token[1].type)
-            print(token[2].type)
+
 
             if i > 3:
                 line = 3
@@ -333,11 +330,15 @@ class Game():
                 line = 3
             positions.append([int(30 + int(i % 4) * (self.WIDTH / 8)), line * height + 30])
             label = myfont.render(cards[i].name, 1, (0, 0, 0))
+            classicationlabel = myfont.render(str(cards[i].classification), 1, (0, 0, 0))
+
 
             fenetre.blit(label, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 30))
+            fenetre.blit(classicationlabel, (15 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
         myfont = pygame.font.SysFont("bitstreamverasans", 14)
         knowledgeLegend = ["Ph :", "Ch :", "Me :", "Ma :"]
+
 
         for i in range(0, len(cards)):
             heightoffest = 20
