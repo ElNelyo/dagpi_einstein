@@ -172,11 +172,21 @@ class Game():
         inventors = self.getMyInventors(colorListString[intPlayer])
         namePos = [originPosition[0] + fonting_space, originPosition[1] + 30]
 
+        myfont = pygame.font.SysFont("bitstreamverasans", 10)
+        label1 = myfont.render(str("Age1"), 1, (0, 0, 0))
+        label2 = myfont.render(str("Age2"), 1, (0, 0, 0))
+        label3 = myfont.render(str("Age3"), 1, (0, 0, 0))
+        fenetre.blit(label1, (830, 550))
+        fenetre.blit(label2, (870, 550))
+        fenetre.blit(label3, (910, 550))
+
         myfont = pygame.font.SysFont("bitstreamverasans", 12)
 
         knowledgeLegend = ["Ph :", "Ch :", "Me :", "Ma :", "Vpt :"]
 
         toAddToI = 5
+
+
 
         for i in range(0, 5):  # display the legend
 
@@ -184,6 +194,19 @@ class Game():
             if i == 4:
                 toAddToI = 6
             fenetre.blit(label, (namePos[0] - 30, namePos[1] + (toAddToI + i) * oneLine))
+
+
+        myfont = pygame.font.SysFont("bitstreamverasans", 9)
+
+        ownedcard = [["Age1", [namePos[0], -150 + namePos[1] * oneLine]],
+                     ["Age2", [namePos[0]+30, -150 + namePos[1] * oneLine]],
+                     ["Age3", [namePos[0]+60, -150 + namePos[1] * oneLine]]]
+
+        for card in ownedcard:
+            label = myfont.render(card[0], 1, (0, 0, 0))
+            fenetre.blit(label, card[1])
+
+
 
         for inventor in inventors:
 
@@ -221,7 +244,14 @@ class Game():
                 label = myfont.render(legend[0], 1, (0, 0, 0))
                 fenetre.blit(label, legend[1])
 
-            myfont = pygame.font.SysFont("bitstreamverasans", 14)
+
+
+
+
+
+
+
+
 
             for i in range(0, 4):
                 self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]),
@@ -250,11 +280,11 @@ class Game():
                 line = 3
 
             if token[1].type[:-1] == "pointreward":
-                token1 = myfonttoken.render(str("Pt" + token[1].type[-1]), 1, (0, 0, 0))
+                token1 = myfonttoken.render(str("PT" + token[1].type[-1]), 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[2].type[:-1] == "pointreward":
-                token2 = myfonttoken.render(str("Pt" + token[2].type[-1]), 1, (0, 0, 0))
+                token2 = myfonttoken.render(str("PT" + token[2].type[-1]), 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[1].type[:-1] == "progressreward":
@@ -266,24 +296,24 @@ class Game():
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[1].type == "availabilityreward":
-                token1 = myfonttoken.render("AV", 1, (0, 0, 0))
+                token1 = myfonttoken.render("CF", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
             if token[2].type == "availabilityreward":
-                token2 = myfonttoken.render("AV", 1, (0, 0, 0))
+                token2 = myfonttoken.render("CF", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[1].type == "additionalknowledger":
-                token1 = myfonttoken.render("AK", 1, (0, 0, 0))
+                token1 = myfonttoken.render("DJ", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
             if token[2].type == "additionalknowledger":
-                token2 = myfonttoken.render("AK", 1, (0, 0, 0))
+                token2 = myfonttoken.render("DJ", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[1].type == "classificationreward":
-                token1 = myfonttoken.render("Cl", 1, (0, 0, 0))
+                token1 = myfonttoken.render("ST", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
             if token[2].type == "classificationreward":
-                token2 = myfonttoken.render("Cl", 1, (0, 0, 0))
+                token2 = myfonttoken.render("ST", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             i += 1
