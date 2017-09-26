@@ -18,25 +18,25 @@ class Inventor:
         if self.canAddKnowledge(know, value):
             self.currentKnowledge[know] = self.currentKnowledge[know] + 1
 
+    #Return a list of inventions that fit with the inventor
     def boardCardsForInventor(self, cardBoard):
-        if not self.sleep:
             # liste d'inventions compatibles à l'inventeur
-            inventorInventionslist = []
-            for invention in cardBoard:
-                # Pour chaque compétence de Knowledge SI la compétence actuelle de l'invention est
-                listKnowledge = []
+        inventorInventionslist = []
+        for invention in cardBoard:
+            # Pour chaque compétence de Knowledge SI la compétence actuelle de l'invention est
+            listKnowledge = []
 
-                for competence in Knowledge:
+            for competence in Knowledge:
 
-                    if invention.knowledge[competence.value] == 0 or self.currentKnowledge[competence.value ] == 0:
-                        listKnowledge.append(0)
+                if invention.knowledge[competence.value] == 0 or self.currentKnowledge[competence.value ] == 0:
+                    listKnowledge.append(0)
 
-                    else:
-                        a = min(invention.knowledge[competence.value], self.currentKnowledge[competence.value])
-                        listKnowledge.append(a)
+                else:
+                    a = min(invention.knowledge[competence.value], self.currentKnowledge[competence.value])
+                    listKnowledge.append(a)
 
 
-                if listKnowledge != [0, 0, 0, 0]:
-                    inventorInventionslist.append(invention)
+            if listKnowledge != [0, 0, 0, 0]:
+                inventorInventionslist.append(invention)
 
         return inventorInventionslist
