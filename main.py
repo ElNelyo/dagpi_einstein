@@ -3,6 +3,7 @@
 import parse
 import pygame
 import random
+from Gameboard import Gameboard
 
 class Game():
     CIEL = 0, 200, 255
@@ -28,71 +29,61 @@ class Game():
             if (team.color == colour):
                 return team.inventors
 
+    def drawButtonNbPlayer(self, fenetre, offset):
+        return pygame.draw.rect(fenetre, Game.WHITE,
+                                [Game.WIDTH / 5 * offset - Game.WIDTH_BUTTON / 2,
+                                 Game.HEIGHT / 3, Game.WIDTH_BUTTON, 50])
 
-    def selectIANumber(self,playerColor):
+    def selectIANumber(self, playerColor):
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
         background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
         fenetre.blit(background, (0, 0))
         myfont = pygame.font.SysFont("monospace", 52)
         label = myfont.render("Select max numbers of players  ", 1, (0, 0, 0))
-        fenetre.blit(label,((Game.WIDTH / 2-label.get_width()/2, Game.HEIGHT / 4-label.get_height())))
+        fenetre.blit(label, (Game.WIDTH / 2-label.get_width()/2, Game.HEIGHT / 4-label.get_height()))
+
         loop = True
+
         while loop:
-            button_2 = pygame.draw.rect(fenetre, Game.WHITE,
-                                            [Game.WIDTH / 5 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3, Game.WIDTH_BUTTON,
-                                             50])
-            button_3 = pygame.draw.rect(fenetre, Game.WHITE,
-                                          [Game.WIDTH / 5 * 2 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3, Game.WIDTH_BUTTON,
-                                           50])
-            button_4 = pygame.draw.rect(fenetre, Game.WHITE,
-                                           [Game.WIDTH / 5 * 3 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3, Game.WIDTH_BUTTON,
-                                            50])
-            button_5 = pygame.draw.rect(fenetre, Game.WHITE,
-                                             [Game.WIDTH / 5 *4 - Game.WIDTH_BUTTON / 2, Game.HEIGHT / 3,
-                                              Game.WIDTH_BUTTON, 50])
 
+            button_2 = self.drawButtonNbPlayer(fenetre, 1)
+            button_3 = self.drawButtonNbPlayer(fenetre, 2)
+            button_4 = self.drawButtonNbPlayer(fenetre, 3)
+            button_5 = self.drawButtonNbPlayer(fenetre, 4)
 
-            for i in range(1,5):
+            for i in range(1, 5):
                 myfont = pygame.font.SysFont("monospace", 14)
                 label = myfont.render(str(i+1), 1, (0, 0, 0))
-                fenetre.blit(label, ((Game.WIDTH/5*i+label.get_width()/2,Game.HEIGHT/3)))
+                fenetre.blit(label, (Game.WIDTH/5*i+label.get_width()/2, Game.HEIGHT/3))
 
-
+                nbPlayer = 0
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         loop = False
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and 0 < event.pos[0] < 250 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 166 < event.pos[0] < 266 and 240 < event.pos[1] < 290:
                         print("Players :2")
                         self.showGameScreen(playerColor, 2)
                         loop = False
 
-
-                    if event.type == pygame.MOUSEBUTTONDOWN and 250 < event.pos[0] < 450 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 382 < event.pos[0] < 482 and 240 < event.pos[1] < 290:
                         print("Players :3")
                         self.showGameScreen(playerColor, 3)
                         loop = False
 
-
-                    if event.type == pygame.MOUSEBUTTONDOWN and 450 < event.pos[0] < 700 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 598 < event.pos[0] < 698 and 240 < event.pos[1] < 290:
                         print("Players :4")
                         self.showGameScreen(playerColor, 4)
                         loop = False
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and 700 < event.pos[0] < 950 and 150 < event.pos[1] < 250:
+                    if event.type == pygame.MOUSEBUTTONDOWN and 814 < event.pos[0] < 914 and 240 < event.pos[1] < 290:
                         print("Players :5")
                         self.showGameScreen(playerColor, 5)
                         loop = False
 
             pygame.display.flip()
-
-
-
-
-
-
 
     def showGameScreen(self, playerColor,IAnumber):
         clock = pygame.time.Clock()
@@ -104,6 +95,9 @@ class Game():
         fondCard = pygame.image.load("backgroundCard.png").convert()
 
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
+
+
+
 
 # exchanges 2 items of a list
 
@@ -130,9 +124,11 @@ class Game():
 
         colorList = [Game.PURPLE, Game.YELLOW, Game.GREEN, Game.BLUE, Game.RED]
 
-        for x in range(0, 50): # exchanges 2 positions 60 times => randomizes the list
-            pos1 = 0;
-            pos2 = 0;
+        # exchanges 2 positions 60 times => randomizes the list
+
+        for x in range(0, 50):
+            pos1 = 0
+            pos2 = 0
             while pos1 == pos2:
                 pos1 = random.randrange(0, 5, 1)
                 pos2 = random.randrange(0, 5, 1)
@@ -167,9 +163,9 @@ class Game():
                 returnList.append("blue")
         return returnList
 
-    def displayKnowledge(self, myfont, knowledge, fenetre, namePos, offset, i):
+    def displayKnowledge(self, myfont, knowledge, fenetre, pos1, pos2):
         label = myfont.render(knowledge, 1, (0, 0, 0))
-        fenetre.blit(label, (namePos[0] + offset, namePos[1] + (5 + i) * 12))
+        fenetre.blit(label, (pos1, pos2))
 
     def displayInventors(self, intPlayer, colorListString, originPosition, fenetre):
 
@@ -196,7 +192,9 @@ class Game():
 
             namePos = [originPosition[0] + fonting_space, originPosition[1] + 30]
 
-            name = inventor.name.split() #separates fist and last name into a list
+            # separates fist and last name into a list
+
+            name = inventor.name.split()
 
             vPoints = inventor.points
 
@@ -229,11 +227,111 @@ class Game():
             myfont = pygame.font.SysFont("bitstreamverasans", 14)
 
             for i in range(0, 4):
-                self.displayKnowledge(myfont, str(inventor.startknowledge[i]), fenetre, namePos, 0, i)
-                self.displayKnowledge(myfont, str(inventor.targetknowledge[i]), fenetre, namePos, 20, i)
+                self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]),
+                                      fenetre, namePos[0], namePos[1] + (5 + i) * 12)
+                self.displayKnowledge(myfont, str(inventor.targetknowledge[i]),
+                                      fenetre, namePos[0] + 20, namePos[1] + (5 + i) * 12)
 
             label = myfont.render(vPoints, 1, (0, 0, 0))
             fenetre.blit(label, (namePos[0], namePos[1] + (7 + i) * oneLine))
+
+    def displayToken(self, fenetre):
+
+        line = 2
+        height = int(self.HEIGHT / 4)  # 1/4 of the screen height
+        tokenOnBoard = Gameboard.emplacementOnBoard
+        myfonttoken = pygame.font.SysFont("bitstreamverasans", 10)
+        i = 0
+        for token in tokenOnBoard:
+            print("=========================")
+            print(token[0].name)
+            print(token[1].type)
+            print(token[2].type)
+
+            if i>3 :
+                line = 3
+
+            if token[1].type[:-1] == "pointreward":
+                token1 = myfonttoken.render(str("Pt" + token[1].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[2].type[:-1] == "pointreward":
+                token2 = myfonttoken.render(str("Pt" + token[2].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+
+            if token[1].type[:-1]== "progressreward":
+                token1 = myfonttoken.render(str("P"+token[1].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[2].type[:-1]== "progressreward":
+                token2 = myfonttoken.render(str("P"+token[2].type[-1]), 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[1].type== "availabilityreward":
+                token1 = myfonttoken.render("AV", 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            if token[2].type== "availabilityreward":
+                token2 = myfonttoken.render("AV", 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[1].type == "additionalknowledgereward":
+                token1 = myfonttoken.render("AK", 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            if token[2].type == "additionalknowledgereward":
+                token2 = myfonttoken.render("AK", 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+
+            if token[1].type == "classificationreward":
+                token1 = myfonttoken.render("Cl", 1, (0, 0, 0))
+                fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            if token[2].type == "classificationreward":
+                token2 = myfonttoken.render("Cl", 1, (0, 0, 0))
+                fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
+            i+=1
+
+
+
+    def displayCards(self, cards, fenetre):
+
+        rectSize = 16
+
+        positions = []
+
+        myfont = pygame.font.SysFont("bitstreamverasans", 10)
+
+        height = int(self.HEIGHT/4) # 1/4 of the screen height
+
+        line = 2
+
+        for i in range(0, len(cards)):
+            if i > 3:
+                line = 3
+            positions.append([int(30 + int(i % 4)*(self.WIDTH/8)), line*height + 30])
+            label = myfont.render(cards[i].name, 1, (0, 0, 0))
+
+
+            fenetre.blit(label, (30 + int((i % 4)*(self.WIDTH/8)), line*height + 30))
+
+        myfont = pygame.font.SysFont("bitstreamverasans", 14)
+
+        for i in range(0, len(cards)):
+            heightoffest = 30
+            for kn in cards[i].knowledge:
+                widthoffset = 0
+                for j in range(0, kn):
+                    pygame.draw.rect(fenetre, Game.WHITE, [positions[i][0] + widthoffset, positions[i][1] + heightoffest,
+                                                           rectSize, rectSize])
+                    widthoffset += (rectSize + 2)
+                heightoffest += (rectSize +2)
+
+
+
+        # print(cards[0].knowledge)
+
+
+
+
 
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
         #Display Backgrounds for players emplacements
@@ -253,8 +351,6 @@ class Game():
             playerPositions.append([int(Game.WINDOW_WIDTH*3), 0])
         playerPositions.append([int(Game.WINDOW_WIDTH*3), int(Game.WINDOW_HEIGHT)])
 
-        print(playerPositions)
-
         loop = True
 
         colorList = self.placeColors(playerColor, IANumber) #Place the player in the bottom right corner and
@@ -264,8 +360,19 @@ class Game():
 
         colorListString = self.fromRGBtoSTRINGList(colorList, len(colorList))
 
+# Display the inventors infos
+
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
+
+# Display the cards
+
+        gameboard = Gameboard(1, IANumber)
+        cards = gameboard.distribute()
+        #135 = WIDHT / 8
+
+        self.displayCards(cards, fenetre)
+        self.displayToken(fenetre)
 
         while loop:
 
