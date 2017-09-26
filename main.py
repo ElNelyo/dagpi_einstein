@@ -14,6 +14,7 @@ class Game():
     RED = 255, 0, 0
     YELLOW = 255, 255, 100
     PURPLE = 204, 0, 153
+    GRAY = 150, 150, 150
     WIDTH = 1080
     HEIGHT = 720
     WINDOW_WIDTH = WIDTH / 4
@@ -22,6 +23,12 @@ class Game():
 
     def __init__(self):
         pygame.init()
+
+    def setLeonardo(self,player,fenetre):
+        leonardo = "Leonardo : "+player
+        myfont = pygame.font.SysFont("monospace", 12)
+        label = myfont.render(leonardo, 1, (0, 0, 0))
+        fenetre.blit(label, (540,375))
 
     def getMyInventors(self, colour):
         myparse = parse.Parse()
@@ -43,6 +50,7 @@ class Game():
         myfont = pygame.font.SysFont("monospace", 52)
         label = myfont.render("Select max numbers of players  ", 1, (0, 0, 0))
         fenetre.blit(label, (Game.WIDTH / 2 - label.get_width() / 2, Game.HEIGHT / 4 - label.get_height()))
+
 
         loop = True
 
@@ -94,8 +102,9 @@ class Game():
         fenetre.blit(background, (0, Game.WINDOW_HEIGHT))
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
-
+        self.setLeonardo("null",fenetre)
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
+
 
     # exchanges 2 items of a list
 
@@ -244,15 +253,6 @@ class Game():
                 label = myfont.render(legend[0], 1, (0, 0, 0))
                 fenetre.blit(label, legend[1])
 
-
-
-
-
-
-
-
-
-
             for i in range(0, 4):
                 self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]),
                                       fenetre, namePos[0], namePos[1] + (5 + i) * 12)
@@ -373,11 +373,11 @@ class Game():
 
                 # print(cards[0].knowledge)
 
-    def displayButton(self, fenetre, text, posX, posY, sizeX, sizeY, fontSize):
+    def displayButton(self, fenetre, text, posX, posY, sizeX, sizeY, fontSize, color):
 
         buttonSettings = [posX, posY, sizeX, sizeY]
 
-        pygame.draw.rect(fenetre, Game.WHITE, [posX, posY, sizeX, sizeY])
+        pygame.draw.rect(fenetre, color, [posX, posY, sizeX, sizeY])
 
         myfont = pygame.font.SysFont("bitstreamverasans", fontSize)
         label = myfont.render(text, 1, (0, 0, 0))
@@ -394,13 +394,27 @@ class Game():
         offsetX = buttonSettings[2] + 1
         offsetY = buttonSettings[3]
         oneLine = 0
+        boutons = []
+        color = Game.WHITE
         for inventor in inventors:
+            if inventor.sleep:
+                color = Game.GRAY
+            else:
+                color = Game.WHITE
             self.displayButton(fenetre, inventor.name, buttonSettings[0] + offsetX,
                                buttonSettings[1] + oneLine,
-                               100, 15, 10)
+                               110, 15, 10, color)
+            boutons.append([buttonSettings[0] + offsetX, buttonSettings[1] + oneLine, 100, 15])
             oneLine += 16
 
+        return boutons
+
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
+
+        dropListDisplayed = False
+        myInventors = self.getMyInventors(playerColor)
+        inventorName = ""
+
         # Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
         fenetre.blit(backgroundCard, (0, 0))
@@ -435,7 +449,10 @@ class Game():
 
         self.displayCards(cards, fenetre)
         self.displayToken(fenetre)
-        button1Settings = self.displayButton(fenetre, "PlaceCube", Game.WIDTH/2, Game.HEIGHT/2 + 30, 100, 50, 14)
+        button1Settings = self.displayButton(fenetre, "PlaceCube",
+                                             Game.WIDTH/2, Game.HEIGHT/2 + 30, 100, 50, 14, Game.WHITE)
+
+
 
         while loop:
 
@@ -470,14 +487,26 @@ class Game():
             board = pygame.draw.rect(fenetre, white_color,
                                      [0, Game.WINDOW_HEIGHT + 5, Game.WINDOW_WIDTH * 3 - 5, Game.WINDOW_HEIGHT - 6],
                                      5)
-            # return 1 if cursor above rectangle
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     loop = False
-                elif event.type == pygame.MOUSEBUTTONDOWN :
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+
                         if self.overButton(event.pos, button1Settings):
-                            self.displayDropList(fenetre, button1Settings, self.getMyInventors(playerColor))
+                            if dropListDisplayed:
+                                print("hide droplist") #TODO
+                            else:
+                                dropList = self.displayDropList(fenetre, button1Settings, myInventors)
+                            dropListDisplayed = not dropListDisplayed
+                        if dropListDisplayed:
+                            for button in dropList:
+                                if self.overButton(event.pos, button):
+                                    clickedInventor = myInventors[int((button[1]-390)/16)]
+                                    clickedInventor.sleep = True
+                                    dropList = self.displayDropList(fenetre, button1Settings, myInventors)
+                                    print(clickedInventor.name)
+
             pygame.display.flip()
             # 10 fps
 
@@ -570,7 +599,6 @@ class Game():
                 for inv in team.inventors:
                     print("Inventor added :" + inv.name)
                 return team
-
 
 myGame = Game()
 myGame.loadSettingMenu()
