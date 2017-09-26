@@ -23,6 +23,12 @@ class Game():
     def __init__(self):
         pygame.init()
 
+    def setLeonardo(self,player,fenetre):
+        leonardo = "Leonardo : "+player
+        myfont = pygame.font.SysFont("monospace", 12)
+        label = myfont.render(leonardo, 1, (0, 0, 0))
+        fenetre.blit(label, (540,375))
+
     def getMyInventors(self, colour):
         myparse = parse.Parse()
         myteam = myparse.getTeam()
@@ -43,6 +49,7 @@ class Game():
         myfont = pygame.font.SysFont("monospace", 52)
         label = myfont.render("Select max numbers of players  ", 1, (0, 0, 0))
         fenetre.blit(label, (Game.WIDTH / 2 - label.get_width() / 2, Game.HEIGHT / 4 - label.get_height()))
+
 
         loop = True
 
@@ -94,8 +101,9 @@ class Game():
         fenetre.blit(background, (0, Game.WINDOW_HEIGHT))
 
         fondCard = pygame.image.load("backgroundCard.png").convert()
-
+        self.setLeonardo("null",fenetre)
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
+
 
     # exchanges 2 items of a list
 
@@ -436,6 +444,8 @@ class Game():
         self.displayCards(cards, fenetre)
         self.displayToken(fenetre)
         button1Settings = self.displayButton(fenetre, "PlaceCube", Game.WIDTH/2, Game.HEIGHT/2 + 30, 100, 50, 14)
+
+
 
         while loop:
 
