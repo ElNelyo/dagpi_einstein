@@ -3,11 +3,11 @@ from Knowledge import Knowledge
 class Inventor:
 
     # Init inventor with his name and victory points
-    def __init__(self, name, points, currentKnowledge, targetknowledge):
+    def __init__(self, name, points, currentKnowledge, targetKnowledge):
         self.name = name
         self.points = points
         self.currentKnowledge = currentKnowledge
-        self.targetknowledge = targetknowledge
+        self.targetKnowledge = targetKnowledge
         self.sleep = False
 
 
