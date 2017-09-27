@@ -590,15 +590,15 @@ class Game():
                                     print(clickedInventor.name)
                                     inventionListPosssible = []
                                     dropListDisplayed = not dropListDisplayed
-                                    for action in gameboard.possibleactions:
+                                    for action in self.gameboard.possibleactions:
                                         if (action[1].name == clickedInventor.name):
                                             #print("Actions possibles")
                                             #print(action[2].name)
                                             inventionListPosssible.append(action)
                                     self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
-                                    if(event.type == pygame.MOUSEBUTTONDOWN):
-                                      clikedAction = inventionListPosssible[1][2].name
-                                      print(clikedAction)
+  #                                  if(event.type == pygame.MOUSEBUTTONDOWN):
+#                                      clikedAction = inventionListPosssible[1][2].name
+ #                                     print(clikedAction)
 
                         if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
                             0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
