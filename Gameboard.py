@@ -1,7 +1,7 @@
 # Create Gameboard class
 import parse
 import random
-
+from function import Function
 
 class Gameboard:
     age = 0
@@ -49,6 +49,12 @@ class Gameboard:
                 inventor.sleep = False
         else:
             inventor.sleep = True
+    def newTurn(self,team):
+
+        possible_action = Function.all_possible_action(self,team,self.cardsOnBoard)
+        print(possible_action)
+
+
 
 
 
