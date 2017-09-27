@@ -512,8 +512,9 @@ class Game():
             listPlayer.append(player)
 
         # Display the inventors infos
-        self.gameboard = Gameboard(1, listPlayer)
-        cards = self.gameboard.distribute()
+        gameboard = Gameboard(1, listPlayer)
+        cards = gameboard.distribute()
+        gameboard.newTurn(myInventors)
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
         self.displayToken(fenetre)
@@ -590,11 +591,12 @@ class Game():
                                     print(clickedInventor.name)
                                     inventionListPosssible = []
                                     dropListDisplayed = not dropListDisplayed
-                                    for action in self.gameboard.possibleactions:
+                                    for action in gameboard.possibleactions:
                                         if (action[1].name == clickedInventor.name):
                                             #print("Actions possibles")
                                             #print(action[2].name)
                                             inventionListPosssible.append(action)
+                                    print(inventionListPosssible)
                                     self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
   #                                  if(event.type == pygame.MOUSEBUTTONDOWN):
 #                                      clikedAction = inventionListPosssible[1][2].name

@@ -57,7 +57,7 @@ class Gameboard:
             inventor.sleep = True
     def newTurn(self,team):
         print("LLALLALLALL")
-        self.possibleactions = (Function.all_possible_action(self,team,self.cardsOnBoard))
+        self.possibleactions = (function.Function.all_possible_action(self,team,self.cardsOnBoard))
 
 
 
