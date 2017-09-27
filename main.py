@@ -319,45 +319,44 @@ class Game():
 
         i = 0
         for token in tokenOnBoard:
-
-
+            print(token[1].type)
             if i > 3:
                 line = 3
 
-            if token[1].type[:-1] == "pointreward":
-                token1 = myfonttoken.render(str("PT" + token[1].type[-1]), 1, (0, 0, 0))
+            if token[1].type == "pointReward":
+                token1 = myfonttoken.render(str("PT" + str(token[1].level)), 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[2].type[:-1] == "pointreward":
-                token2 = myfonttoken.render(str("PT" + token[2].type[-1]), 1, (0, 0, 0))
+            if token[2].type == "pointReward":
+                token2 = myfonttoken.render(str("PT" + str(token[2].level)), 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[1].type[:-1] == "progressreward":
-                token1 = myfonttoken.render(str("P" + token[1].type[-1]), 1, (0, 0, 0))
+            if token[1].type == "progressReward":
+                token1 = myfonttoken.render(str("P" + str(token[1].level)), 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[2].type[:-1] == "progressreward":
-                token2 = myfonttoken.render(str("P" + token[2].type[-1]), 1, (0, 0, 0))
+            if token[2].type == "progressReward":
+                token2 = myfonttoken.render(str("P" + str(token[2].level)), 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[1].type == "availabilityreward":
+            if token[1].type == "availabilityReward":
                 token1 = myfonttoken.render("CF", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
-            if token[2].type == "availabilityreward":
+            if token[2].type == "availabilityReward":
                 token2 = myfonttoken.render("CF", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[1].type == "additionalknowledger":
+            if token[1].type == "additonalKnowledgeReward":
                 token1 = myfonttoken.render("DG", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
-            if token[2].type == "additionalknowledger":
+            if token[2].type == "additonalKnowledgeReward":
                 token2 = myfonttoken.render("DG", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
-            if token[1].type == "classificationreward":
+            if token[1].type == "classificationReward":
                 token1 = myfonttoken.render("ST", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
-            if token[2].type == "classificationreward":
+            if token[2].type == "classificationReward":
                 token2 = myfonttoken.render("ST", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
@@ -512,9 +511,9 @@ class Game():
         gameboard.newTurn(myInventors)
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
-
-        self.displayCards(cards, fenetre)
         self.displayToken(fenetre)
+        self.displayCards(cards, fenetre)
+
 
         # Top Button
         button1Settings = self.displayButton(fenetre, "PlaceCube",
@@ -592,7 +591,7 @@ class Game():
                                             #print(action[2].name)
                                             inventionListPosssible.append(action)
                                     self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
-                                    if self.overButton(event.pos, button):
+                                    if(event.type == pygame.MOUSEBUTTONDOWN):
                                       clikedAction = inventionListPosssible[1][2].name
                                       print(clikedAction)
 
