@@ -9,6 +9,7 @@ class Gameboard:
     playersOnBoard          = []
     pocket                  = []
     emplacementOnBoard      = []
+    possibleactions         = []
 
     def __init__(self, tour, nbPlayer):
         self.tour = tour
@@ -50,9 +51,9 @@ class Gameboard:
         else:
             inventor.sleep = True
     def newTurn(self,team):
+        print("LLALLALLALL")
+        self.possibleactions = (Function.all_possible_action(self,team,self.cardsOnBoard))
 
-        possible_action = Function.all_possible_action(self,team,self.cardsOnBoard)
-        print(possible_action)
 
 
 
