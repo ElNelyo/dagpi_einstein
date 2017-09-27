@@ -7,7 +7,7 @@ import InventorKnowledgeTarget
 import Invention
 import Token
 import InventionKnowledge
-import Team
+from Team import Team
 
 
 class Parse:
@@ -87,7 +87,7 @@ class Parse:
                     print("\n   [Target Points]")
                     print("   " + myInventor.points)
                     print(" ")
-                myTeam = Team.Team(listInventorsFromSingleTeam, myColor)
+                myTeam = Team(listInventorsFromSingleTeam, myColor)
                 self.myListTeam.append(myTeam)
                 """"for team in myTeam.inventors:
                 print("LDOKDODSOKDKS33"+team.name[0].firstChild.nodeValue)
