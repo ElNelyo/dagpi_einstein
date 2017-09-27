@@ -173,7 +173,7 @@ class Parse:
                 for a in range(0, number):
                     # Point reward object
                     myProgressReward = Token.Token(type)
-                    myProgressReward.level = level[0].firstChild.nodeValue
+                    myProgressReward.level = int(level[0].firstChild.nodeValue)
                     print(myProgressReward.type)
                     print(myProgressReward.level)
                     print("Objet progressward cree")
@@ -192,7 +192,7 @@ class Parse:
             for a in range(0, number):
                 # Point reward object
                 myPointReward = Token.Token(type)
-                myPointReward.level = level[0].firstChild.nodeValue
+                myPointReward.level = int(level[0].firstChild.nodeValue)
                 print("Objet pointreward cree")
                 self.myListReward.append(myPointReward)
             print("Type :" + "pointreward" + type)
