@@ -75,7 +75,7 @@ class Game():
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                        loop = False
+                        continue
 
                     if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 5 < event.pos[0] < Game.WIDTH / 5 + Game.WIDTH_BUTTON and Game.HEIGHT / 3 < event.pos[1] < Game.HEIGHT / 3 + 50:
                         print("IA Basic")
@@ -608,8 +608,6 @@ class Game():
 
     def loadSettingMenu(self):
 
-        myGame.selectIALevel()
-
         clock = pygame.time.Clock()
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
@@ -701,4 +699,4 @@ class Game():
                 return team
 
 myGame = Game()
-myGame.loadSettingMenu()
+myGame.selectIALevel()
