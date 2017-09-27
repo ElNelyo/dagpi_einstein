@@ -300,10 +300,10 @@ class Game():
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[1].type == "additionalknowledger":
-                token1 = myfonttoken.render("DJ", 1, (0, 0, 0))
+                token1 = myfonttoken.render("DG", 1, (0, 0, 0))
                 fenetre.blit(token1, (30 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
             if token[2].type == "additionalknowledger":
-                token2 = myfonttoken.render("DJ", 1, (0, 0, 0))
+                token2 = myfonttoken.render("DG", 1, (0, 0, 0))
                 fenetre.blit(token2, (80 + int((i % 4) * (self.WIDTH / 8)), line * height + 130))
 
             if token[1].type == "classificationreward":
