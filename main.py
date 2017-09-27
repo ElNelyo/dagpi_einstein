@@ -42,6 +42,53 @@ class Game():
                                 [Game.WIDTH / 5 * offset - Game.WIDTH_BUTTON / 2,
                                  Game.HEIGHT / 3, Game.WIDTH_BUTTON, 50])
 
+
+    def selectIALevel(self):
+        fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        fond = pygame.image.load("background.jpg").convert()
+        background = pygame.transform.scale(fond, (int(Game.WIDTH), int(Game.HEIGHT)))
+        fenetre.blit(background, (0, 0))
+        myfont = pygame.font.SysFont("monospace", 52)
+        label = myfont.render("Select the difficulty", 1, (0, 0, 0))
+        fenetre.blit(label, (Game.WIDTH / 2 - label.get_width() / 2, Game.HEIGHT / 4 - label.get_height()))
+
+        button_IABasic = pygame.draw.rect(fenetre, Game.WHITE,
+                                          [Game.WIDTH / 5, Game.HEIGHT / 3, Game.WIDTH_BUTTON, 50])
+        button_IAAdvanced = pygame.draw.rect(fenetre, Game.WHITE,
+                                             [Game.WIDTH / 5 * 4, Game.HEIGHT / 3, Game.WIDTH_BUTTON, 50])
+
+        myfont = pygame.font.SysFont("monospace", 12)
+        labelAI1 = myfont.render(str("AI Basic"), 1, (0, 0, 0))
+        labelAI2 = myfont.render(str("AI Advanced"), 1, (0, 0, 0))
+        fenetre.blit(labelAI1, (Game.WIDTH / 5 + 10, Game.HEIGHT / 3 + 20))
+        fenetre.blit(labelAI2, (Game.WIDTH / 5 * 4 + 10, Game.HEIGHT / 3 + 20))
+
+
+        pygame.display.flip()
+        loop = True
+        while loop:
+
+            for i in range(1, 5):
+                myfont = pygame.font.SysFont("monospace", 14)
+                label = myfont.render(str(i + 1), 1, (0, 0, 0))
+                fenetre.blit(label, (Game.WIDTH / 2 - label.get_width() / 2, Game.HEIGHT / 4 - label.get_height()))
+
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        loop = False
+
+                    if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 5 < event.pos[0] < Game.WIDTH / 5 + Game.WIDTH_BUTTON and Game.HEIGHT / 3 < event.pos[1] < Game.HEIGHT / 3 + 50:
+                        print("IA Basic")
+                        self.loadSettingMenu()
+                        loop = False
+
+                    if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 5 * 4 < event.pos[0] < Game.WIDTH / 5 * 4 + Game.WIDTH_BUTTON and Game.HEIGHT / 3 < event.pos[1] < Game.HEIGHT / 3 + 50:
+                        print("IA Advanced")
+                        self.loadSettingMenu()
+                        loop = False
+            pygame.display.flip()
+
+
     def selectIANumber(self, playerColor):
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         fond = pygame.image.load("background.jpg").convert()
@@ -561,6 +608,8 @@ class Game():
             # 10 fps
 
     def loadSettingMenu(self):
+
+        myGame.selectIALevel()
 
         clock = pygame.time.Clock()
         fenetre = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
