@@ -411,6 +411,22 @@ class Game():
 
         return boutons
 
+    def displayInventionPossible(self, fenetre, buttonSettings, inventions):
+        offsetX = buttonSettings[2] + 1
+        offsetY = buttonSettings[3]
+        oneLine = 0
+        boutons = []
+        color = Game.WHITE
+        for invention in inventions:
+            color = Game.WHITE
+            self.displayButton(fenetre, invention[2].name, buttonSettings[0] + offsetX,
+                               buttonSettings[1] + oneLine,
+                               110, 15, 10, color)
+            boutons.append([buttonSettings[0] + offsetX, buttonSettings[1] + oneLine, 100, 15])
+            oneLine += 16
+
+        return boutons
+
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
 
         dropListDisplayed = False
@@ -520,11 +536,20 @@ class Game():
                                     clickedInventor.sleep = True
                                     dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                     print(clickedInventor.name)
+                                    inventionListPosssible = []
                                     for action in gameboard.possibleactions:
                                         if (action[1].name == clickedInventor.name):
-                                            print("Actions possibles")
-                                            print(action[2].name)
-                                            
+                                            #print("Actions possibles")
+                                            #print(action[2].name)
+                                            inventionListPosssible.append(action)
+                                    self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
+                                    if self.overButton(event.pos, button):
+                                      clikedAction = inventionListPosssible[1][2].name
+                                      print(clikedAction)
+
+
+
+
 
 
 
