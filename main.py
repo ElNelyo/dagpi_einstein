@@ -106,6 +106,7 @@ class Game():
         self.loadPlayersBackgrounds(fenetre, fondCard, playerColor, IAnumber)
 
 
+
     # exchanges 2 items of a list
 
     def exchangeList(self, list, pos1, pos2):
@@ -445,6 +446,7 @@ class Game():
         # Display the inventors infos
         gameboard = Gameboard(1, IANumber)
         cards = gameboard.distribute()
+        gameboard.newTurn(myInventors)
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
 
@@ -518,6 +520,15 @@ class Game():
                                     clickedInventor.sleep = True
                                     dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                     print(clickedInventor.name)
+                                    for action in gameboard.possibleactions:
+                                        if (action[1].name == clickedInventor.name):
+                                            print("Actions possibles")
+                                            print(action[2].name)
+                                            dropListInvention = self.displa
+
+
+
+
 
             pygame.display.flip()
             # 10 fps
@@ -549,6 +560,7 @@ class Game():
         myParse = parse.Parse()
         myColor = parse.Parse.getColor(myParse)
         fontcompt = 1
+
 
         for item in myColor:
             myfont = pygame.font.SysFont("monospace", 14)
