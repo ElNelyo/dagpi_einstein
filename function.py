@@ -106,7 +106,7 @@ class Function :
         for team in parse.Parse.myListTeam:
             print(team.color)
 
-
+        return allPossibleAction
     '''
             all_possible_action.append(liste(inventeur/invention/liste [0,0,0,0]
                                              ))
