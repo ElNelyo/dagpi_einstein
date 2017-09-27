@@ -592,6 +592,7 @@ class Game():
                     print("Red team")
                     self.getMyTeam("red")
                     self.selectIANumber("red")
+                    loop = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN and 800 < event.pos[0] < 1000 and 150 < event.pos[1] < 250:
                     print("Purple team")
