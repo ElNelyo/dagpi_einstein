@@ -70,7 +70,7 @@ class Game():
 
             for i in range(1, 5):
                 myfont = pygame.font.SysFont("monospace", 14)
-                label = myfont.render(str(i + 1), 1, (0, 0, 0))
+                #label = myfont.render(str(i + 1), 1, (0, 0, 0))
                 fenetre.blit(label, (Game.WIDTH / 2 - label.get_width() / 2, Game.HEIGHT / 4 - label.get_height()))
 
                 for event in pygame.event.get():
