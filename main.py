@@ -524,7 +524,7 @@ class Game():
                                         if (action[1].name == clickedInventor.name):
                                             print("Actions possibles")
                                             print(action[2].name)
-                                            dropListInvention = self.displa
+                                            
 
 
 
