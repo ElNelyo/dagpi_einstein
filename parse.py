@@ -169,10 +169,13 @@ class Parse:
                 reward = progresspoint.getElementsByTagName('number')  # Get number
                 level = progresspoint.getElementsByTagName('level')  # Get level
                 number = int(float(reward[0].firstChild.nodeValue))
-                type = str(level[0].firstChild.nodeValue)
+                type = "progressReward"
                 for a in range(0, number):
                     # Point reward object
-                    myProgressReward = Token.Token("progressreward" + type)
+                    myProgressReward = Token.Token(type)
+                    myProgressReward.level = level[0].firstChild.nodeValue
+                    print(myProgressReward.type)
+                    print(myProgressReward.level)
                     print("Objet progressward cree")
                     self.myListReward.append(myProgressReward)
                 print("Type :" + "progressreward" + type)
@@ -185,10 +188,11 @@ class Parse:
             reward = pointreward.getElementsByTagName('number')  # Get number
             level = pointreward.getElementsByTagName('point')  # Get points
             number = int(float(reward[0].firstChild.nodeValue))
-            type = str(level[0].firstChild.nodeValue)
+            type = "pointReward"
             for a in range(0, number):
                 # Point reward object
-                myPointReward = Token.Token("pointreward" + type)
+                myPointReward = Token.Token(type)
+                myPointReward.level = level[0].firstChild.nodeValue
                 print("Objet pointreward cree")
                 self.myListReward.append(myPointReward)
             print("Type :" + "pointreward" + type)
@@ -201,8 +205,9 @@ class Parse:
         for availabilityreward in availabilityrewardlist:
             print(availabilityreward.firstChild.data)  # Get number
             number = int(float(availabilityreward.firstChild.data))
+            type = "availabilityReward"
             for a in range(0, number):
-                myToken = Token.Token("availabilityreward")
+                myToken = Token.Token(type)
                 print("Availability object created")
                 self.myListReward.append(myToken)
 
@@ -213,8 +218,9 @@ class Parse:
         for additionalknowledgereward in additionalknowledgerewardlist:
             print(additionalknowledgereward.firstChild.data)  # Get number
             number = int(float(additionalknowledgereward.firstChild.data))
+            type = "additonalKnowledgeReward"
             for a in range(0, number):
-                myToken = Token.Token("additionalknowledger")
+                myToken = Token.Token(type)
                 print("Objet additionalknowledger cree")
                 self.myListReward.append(myToken)
 
@@ -224,8 +230,9 @@ class Parse:
         for classificationreward in classificationrewardlist:
             print(classificationreward.firstChild.data)  # Get number
             number = int(float(classificationreward.firstChild.data))
+            type = "classificationReward"
             for a in range(0, number):
-                myToken = Token.Token("classificationreward")
+                myToken = Token.Token(type)
                 print("Classification object created")
                 self.myListReward.append(myToken)
 
