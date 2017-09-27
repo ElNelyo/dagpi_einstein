@@ -10,6 +10,6 @@ class label:
         self.fontSize = fontSize
 
     def display(self, fenetre):
-        myfont = pygame.font.SysFont("monospace", self.fontSize)
+        myfont = pygame.font.SysFont("bitstreamverasans", self.fontSize)
         label = myfont.render(self.text, 1, (0, 0, 0))
         fenetre.blit(label, (self.posX, self.posY))

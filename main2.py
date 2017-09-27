@@ -7,9 +7,9 @@ from list import list
 from button import button
 from sprite import sprite
 from label import label
-from hollowRect import hollowRect
-import random
 from Gameboard import Gameboard
+from Inventor import Inventor
+from hollowRect import hollowRect
 
 
 class Game:
@@ -36,6 +36,9 @@ class Game:
     WIDTH_BUTTON = 100
     HEIGHT_BUTTON = 50
 
+    # Height of a line
+    ONELINE = 12
+
     # List of everything to display
     toDisplay = []
 
@@ -58,6 +61,7 @@ class Game:
 
             if element.name == "labels":
                 for l in element.l:
+                    print(l.text)
                     l.display(fenetre)
 
             if element.name == "hollowRect":
@@ -212,8 +216,8 @@ class Game:
 
     def loadGameHollowRects(self, nbPlayer, playerColorsList):
         hollowRectList = list([], "hollowRect")
-        hRectWidth = Game.WIDTH / 4 - 5
-        hRectHeight = Game.HEIGHT / 2 - 5
+        hRectWidth = Game.WIDTH / 4 - 3
+        hRectHeight = Game.HEIGHT / 2 - 3
         margin = 5
         for i in range(0, nbPlayer):
             if i == nbPlayer - 1:
@@ -224,6 +228,107 @@ class Game:
                                playerColorsList[i], margin)
             hollowRectList.l.append(h)
         return hollowRectList
+
+    def getMyInventors(self, color):
+        myparse = parse.Parse()
+        myteam = myparse.getTeam()
+        for team in myteam:
+            if team.color == color:
+                return team.inventors
+
+    def fromRGBtoSTRINGList(self, li, size):
+        returnList = []
+        for i in range(0, size):
+            if li[i] == Game.GREEN:
+                returnList.append("green")
+            elif li[i] == Game.RED:
+                returnList.append("red")
+            elif li[i] == Game.YELLOW:
+                returnList.append("yellow")
+            elif li[i] == Game.PURPLE:
+                returnList.append("purple")
+            elif li[i] == Game.BLUE:
+                returnList.append("blue")
+        return returnList
+
+    def loadPlayerPositions(self, nbPlayer):
+
+        positionsList = []
+        for i in range(0, nbPlayer):
+            if i == nbPlayer - 1:
+                positionsList.append([(Game.WIDTH / 4) * 3, Game.HEIGHT / 2])
+            else:
+                positionsList.append([(Game.WIDTH / 4) * i, 0])
+        return positionsList
+
+    def placeInventorsNames(self, position, inventorID, nameOffset, line, name):
+        lab = label(position[0] + inventorID * nameOffset + 15,
+                      position[1] + 30 + line*Game.ONELINE,
+                      name,
+                      9)
+        return lab
+
+    def loadInventorsNames(self, nbPlayer, playerColorList, playersPositions):
+
+        labelList = list([], "labels")
+
+        playerColorList = self.fromRGBtoSTRINGList(playerColorList, nbPlayer)
+
+        playerID = 0
+        nameOffset = 65
+
+        for color in playerColorList:
+            inventors = self.getMyInventors(color)
+
+            inventorId = 0
+
+            for inventor in inventors:
+                name = inventor.name.split()
+                line = 0
+
+                firstNameLabel = True
+
+                firstNamePos = []
+
+                for namePart in name:
+                    nameLabel = self.placeInventorsNames(playersPositions[playerID],
+                                                         inventorId,
+                                                         nameOffset,
+                                                         line,
+                                                         namePart)
+                    if firstNameLabel:
+                        firstNameLabel = False
+                        firstNamePos = [nameLabel.posX, nameLabel.posY]
+                    line += 1
+                    labelList.l.append(nameLabel)
+
+                print(inventor)
+
+                self.loadInventorsKnowledges(firstNamePos, inventor, labelList)
+
+
+
+                inventorId += 1
+
+            playerID += 1
+
+        return labelList
+
+    def loadInventorsKnowledges(self, firstNamePos, inventor, labelList):
+
+        widthOffset = 15
+
+        currentThenTarget = [inventor.currentKnowledge, inventor.targetKnowledge]
+
+        for i in range(0, 2):
+            heightOffset = 0
+            for knowledge in currentThenTarget[i]:
+                lab = label(firstNamePos[0] + i * widthOffset,
+                            firstNamePos[1] + (heightOffset + 4) * Game.ONELINE,
+                            str(knowledge),
+                            9)
+                labelList.l.append(lab)
+                heightOffset += 1
 
     def loadGame(self, playerColor, nbPlayer):
 
@@ -241,11 +346,13 @@ class Game:
 
         Game.toDisplay.append(self.loadGameHollowRects(nbPlayer, playerColorsList))
 
+# Load inventorsInfos
+
+        playersPositions = self.loadPlayerPositions(nbPlayer)
+        Game.toDisplay.append(self.loadInventorsNames(nbPlayer, playerColorsList, playersPositions))
+
         while True:
             self.updateDisplay(Game.toDisplay, fenetre)
-
-
-
 
     def run(self):
         playerColor = self.loadSettingMenu()
