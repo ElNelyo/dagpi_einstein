@@ -1,7 +1,7 @@
 # Create Gameboard class
 import parse
 import random
-from function import Function
+import function
 
 class Gameboard:
     age = 0
@@ -10,14 +10,19 @@ class Gameboard:
     pocket                  = []
     emplacementOnBoard      = []
     possibleactions         = []
+    currentPlayer = 0
 
-    def __init__(self, tour, nbPlayer):
+    def __init__(self, tour, listPlayer):
         self.tour = tour
         self.age = 1
-        self.nbCardToDistribute = (nbPlayer + 3)
+        self.playersOnBoard = listPlayer
+        self.nbCardToDistribute = len(self.playersOnBoard) + 3
+        self.currentPlayer = len(self.playersOnBoard)-1
         for token in parse.Parse.myListReward:
             self.pocket.append(token)
 
+    def awakeCurrentPlayer(self):
+        function.Function.awake(self, self.playersOnBoard[self.currentPlayer].myTeam.inventors)
     def distribute(self):
         cards = parse.Parse()
         cards = cards.getInvention()

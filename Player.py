@@ -1,6 +1,7 @@
+import parse
 class Player:
 
-    def __init__(self, name, ia, associatedTeam,active):
+    def __init__(self, name, ia):
         self.Name = name
         self.IA = ia
         self.associatedTeam = None
@@ -10,7 +11,6 @@ class Player:
         for team in parse.Parse.myListTeam:
             if colorChose == team.color:
                 self.myTeam = team
-                team.playerName = self.Name
 
     def displayTruc(self):
         print("HELLO DARKNESS MY OLD FRIEND")

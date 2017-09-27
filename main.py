@@ -3,6 +3,7 @@
 import parse
 import pygame
 import random
+import Player
 from Gameboard import Gameboard
 
 
@@ -505,11 +506,15 @@ class Game():
         white_color = Game.WHITE
 
         colorListString = self.fromRGBtoSTRINGList(colorList, len(colorList))
+        listPlayer=[]
+        for color in colorListString:
+            player = Player.Player("Player", False)
+            player.chooseTeam(color)
+            listPlayer.append(player)
 
         # Display the inventors infos
-        gameboard = Gameboard(1, IANumber)
-        cards = gameboard.distribute()
-        gameboard.newTurn(myInventors)
+        self.gameboard = Gameboard(1, listPlayer)
+        cards = self.gameboard.distribute()
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
 
@@ -596,7 +601,10 @@ class Game():
                                       clikedAction = inventionListPosssible[1][2].name
                                       print(clikedAction)
 
-
+                        if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
+                            0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
+                            1] < Game.HEIGHT / 10 * 9 + 50:
+                            self.gameboard.awakeCurrentPlayer()
 
 
 
