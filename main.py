@@ -257,7 +257,7 @@ class Game():
             for i in range(0, 4):
                 self.displayKnowledge(myfont, str(inventor.currentKnowledge[i]),
                                       fenetre, namePos[0], namePos[1] + (5 + i) * 12)
-                self.displayKnowledge(myfont, str(inventor.targetknowledge[i]),
+                self.displayKnowledge(myfont, str(inventor.targetKnowledge[i]),
                                       fenetre, namePos[0] + 20, namePos[1] + (5 + i) * 12)
 
             label = myfont.render(vPoints, 1, (0, 0, 0))
@@ -529,6 +529,7 @@ class Game():
                             else:
                                 dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                             dropListDisplayed = not dropListDisplayed
+
                         if dropListDisplayed:
                             for button in dropList:
                                 if self.overButton(event.pos, button):
@@ -537,6 +538,7 @@ class Game():
                                     dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                     print(clickedInventor.name)
                                     inventionListPosssible = []
+                                    dropListDisplayed = not dropListDisplayed
                                     for action in gameboard.possibleactions:
                                         if (action[1].name == clickedInventor.name):
                                             #print("Actions possibles")
