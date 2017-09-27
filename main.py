@@ -5,6 +5,8 @@ import pygame
 import random
 import Player
 from Gameboard import Gameboard
+from time import sleep
+
 
 
 class Game():
@@ -477,6 +479,7 @@ class Game():
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
 
         dropListDisplayed = False
+        dropListActionDisplayed = False
         myInventors = self.getMyInventors(playerColor)
         inventorName = ""
 
@@ -574,14 +577,13 @@ class Game():
                 if event.type == pygame.QUIT:
                     loop = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-
                         if self.overButton(event.pos, button1Settings):
                             if dropListDisplayed:
                                 print("hide droplist") #TODO
                             else:
                                 dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                             dropListDisplayed = not dropListDisplayed
-
+                        inventionListPosssible = []
                         if dropListDisplayed:
                             for button in dropList:
                                 if self.overButton(event.pos, button):
@@ -589,18 +591,23 @@ class Game():
                                     clickedInventor.sleep = True
                                     dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                     print(clickedInventor.name)
-                                    inventionListPosssible = []
                                     dropListDisplayed = not dropListDisplayed
                                     for action in gameboard.possibleactions:
+                                        dropListDisplayed = False
                                         if (action[1].name == clickedInventor.name):
                                             #print("Actions possibles")
                                             #print(action[2].name)
                                             inventionListPosssible.append(action)
+                                            dropListActionDisplayed = not dropListActionDisplayed
                                     print(inventionListPosssible)
+                                    dropListActionDisplayed = True
+                        if dropListActionDisplayed :
+                                droplistaction = self.displayInventionPossible(fenetre, button1Settings,inventionListPosssible)
+                                for button in droplistaction:
+                                 if self.overButton(event.pos, button):
                                     self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
-  #                                  if(event.type == pygame.MOUSEBUTTONDOWN):
-#                                      clikedAction = inventionListPosssible[1][2].name
- #                                     print(clikedAction)
+                                    clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
+                                    print(clickedAction[2].name)
 
                         if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
                             0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
