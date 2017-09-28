@@ -472,6 +472,8 @@ class Game():
         dropListActionDisplayed = False
         myInventors = self.getMyInventors(playerColor)
         inventorName = ""
+        ActionChoosen = []
+        hasChoosenAction = False
 
         # Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
@@ -572,7 +574,11 @@ class Game():
                         if self.overButton(event.pos, button):
                             self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
                             clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
+                            ActionChoosen.append(clickedAction[2])
                             print(clickedAction[2].name)
+                            hasChoosenAction = True
+                            dropListActionDisplayed == False
+
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.overButton(event.pos, button1Settings):
                         if dropListDisplayed:
@@ -596,13 +602,15 @@ class Game():
                                         # print(action[2].name)
                                         inventionListPosssible.append(action)
                                         dropListActionDisplayed = not dropListActionDisplayed
+
                                 print(inventionListPosssible)
                                 dropListActionDisplayed = True
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 + 180 < event.pos[
-                                0] < Game.WIDTH / 2 + 250 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
-                                1] < Game.HEIGHT / 10 * 9 + 50:
-                        print("Next")
+                    if event.type == pygame.MOUSEBUTTONDOWN and hasChoosenAction and  Game.WIDTH / 2 + 180 < event.pos[
+                                    0] < Game.WIDTH / 2 + 250 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
+                                    1] < Game.HEIGHT / 10 * 9 + 50:
+
+                        print(ActionChoosen)
 
                                 # Click on Coffee button
                     if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
