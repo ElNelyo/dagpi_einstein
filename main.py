@@ -480,6 +480,36 @@ class Game():
         elif strColor == "blue":
             return Game.BLUE
 
+    def placeCube(self, playerColor, cards, inventionClicked, clickedInventor, fenetre):
+
+        RGBPlayerColor = self.fromStringToRGB(playerColor)
+
+        # Here if clicked on an invention in the dropList to add cubes on it
+
+        # We have inventionClicked and clickedInventor
+
+        knId = 0
+        for knowledge in clickedInventor.currentKnowledge:
+            for i in range(0, knowledge):
+
+                colorsToTest = inventionClicked.generalKnowledgeColors[knId]
+
+                placeCubeLoop = True
+                position = 0
+
+                if len(colorsToTest) > 0:
+                    while position < (len(colorsToTest)) and placeCubeLoop:
+                        print(knId, " ", position)
+                        if colorsToTest[position] == Game.WHITE:
+                            placeCubeLoop = False
+                            colorsToTest[position] = RGBPlayerColor
+                        position += 1
+
+            knId += 1
+
+        self.displayCards(cards, fenetre)
+
+        pygame.display.flip()
 
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
 
@@ -585,42 +615,36 @@ class Game():
                 if event.type == pygame.QUIT:
                     loop = False
                 elif event.type == pygame.MOUSEBUTTONDOWN and dropListActionDisplayed:
-                    droplistaction = self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
-                    for button in droplistaction:
+                    droplistAction = self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
+                    for button in droplistAction:
                         if self.overButton(event.pos, button):
 
-                            RGBPlayerColor = self.fromStringToRGB(playerColor)
-
-                            # Here if clicked on an invention in the dropList to add cubes on it
-
                             for invention in cards:
-                                if invention.name == button[4] : #If invention name is the same as button label
+                                if invention.name == button[4]:  # If invention name is the same as button label
                                     inventionClicked = invention
 
-                            # We have inventionClicked and clickedInventor
+                            self.placeCube(playerColor, cards, inventionClicked, clickedInventor, fenetre)
 
-                            knId = 0
-                            for knowledge in clickedInventor.currentKnowledge:
-                                for i in range(0, knowledge):
+                            # We have played, time for the random AIs
 
-                                    colorsToTest = inventionClicked.generalKnowledgeColors[knId]
+                            for AI in colorListString:
+                                if(AI != playerColor):
+                                    intors = self.getMyInventors(AI)
+                                    ID = random.randrange(0, 4)
+                                    intor = intors[ID]
 
-                                    placeCubeLoop = True
-                                    position = 0
+                                    inventionList = intor.boardCardsForInventor(cards)
+                                    ID = random.randrange(0, len(inventionList))
+                                    intion = inventionList[ID]
 
-                                    if len(colorsToTest) > 0:
-                                        while position < (len(colorsToTest)) and placeCubeLoop:
-                                            print(knId, " ", position)
-                                            if colorsToTest[position] == Game.WHITE:
-                                                placeCubeLoop = False
-                                                colorsToTest[position] = RGBPlayerColor
-                                            position += 1
+                                    self.placeCube(AI, cards, intion, intor, fenetre)
 
-                                knId += 1
 
-                            self.displayCards(cards, fenetre)
 
-                            pygame.display.flip()
+
+
+
+
 
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -642,13 +666,12 @@ class Game():
                                 dropListDisplayed = not dropListDisplayed
                                 for action in self.gameboard.possibleactions:
                                     dropListDisplayed = False
-                                    
+
                                     if action[1].name == clickedInventor.name:
 
                                         inventionListPosssible.append(action)
                                         dropListActionDisplayed = not dropListActionDisplayed
 
-                                print(inventionListPosssible)
                                 dropListActionDisplayed = True
 
                     if event.type == pygame.MOUSEBUTTONDOWN and hasChoosenAction and  Game.WIDTH / 2 + 180 < event.pos[

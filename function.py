@@ -94,18 +94,6 @@ class Function :
             awakeList.append("Coffee")
             allPossibleAction.append(awakeList)
 
-
-        for a in allPossibleAction:
-            print(a[0].name)
-            print(a[1].name)
-            print(a[2].name)
-            print(a[1].boardCardsForInventor)
-
-        print(allPossibleAction)
-
-        for team in parse.Parse.myListTeam:
-            print(team.color)
-
         return allPossibleAction
     '''
             all_possible_action.append(liste(inventeur/invention/liste [0,0,0,0]
