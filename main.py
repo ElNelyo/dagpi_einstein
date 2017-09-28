@@ -472,7 +472,9 @@ class Game():
         myInventors = self.getMyInventors(playerColor)
         inventorName = ""
         ActionChoosen = []
+        InventorChoosen = []
         hasChoosenAction = False
+        CubePosed = False
 
         # Display Backgrounds for players emplacements
         backgroundCard = pygame.transform.scale(fondCard, (int(Game.WINDOW_WIDTH), int(Game.WINDOW_HEIGHT)))
@@ -572,8 +574,11 @@ class Game():
                             clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
                             ActionChoosen.append(clickedAction[2])
                             print(clickedAction[2].name)
+                            print(clickedInventor.name)
                             hasChoosenAction = True
                             dropListActionDisplayed == False
+                            CubePosed = True
+                            self.Next(clickedAction[2],InventorChoosen)
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.overButton(event.pos, button1Settings):
@@ -586,16 +591,17 @@ class Game():
                     if dropListDisplayed:
                         for button in dropList:
                             if self.overButton(event.pos, button):
-                                clickedInventor = self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.inventors[int((button[1] - 390) / 16)]
+                                clickedInventor = self.gameboard.playersOnBoard[len(self.gameboard.playersOnBoard)-1].myTeam.inventors[int((button[1] - 390) / 16)]
                                 clickedInventor.sleep = True
                                 dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                 print(clickedInventor.name)
+                                InventorChoosen.append(clickedInventor)
                                 dropListDisplayed = not dropListDisplayed
                                 for action in self.gameboard.possibleactions:
                                     dropListDisplayed = False
+                                    
                                     if (action[1].name == clickedInventor.name):
-                                        # print("Actions possibles")
-                                        # print(action[2].name)
+
                                         inventionListPosssible.append(action)
                                         dropListActionDisplayed = not dropListActionDisplayed
 
@@ -725,6 +731,17 @@ class Game():
                 for inv in team.inventors:
                     print("Inventor added :" + inv.name)
                 return team
+
+    def Next(self, Invention, Inventor):
+        knowledgeposed = []
+        for i in range (0,3):
+            if Inventor[0].currentKnowledge[i] !=0:
+                knowledgeposed.append(Inventor[0].name)
+                knowledgeposed.append(Inventor[0].currentKnowledge[i])
+            Invention.knowledgeposed = knowledgeposed
+        #print(Invention.knowledge)
+        #print(Inventor[0].currentKnowledge)
+
 
 
 myGame = Game()

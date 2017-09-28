@@ -19,7 +19,7 @@ class Gameboard:
         self.age = 1
         self.playersOnBoard = listPlayer
         self.nbCardToDistribute = len(self.playersOnBoard) + 3
-        self.currentPlayer = len(self.playersOnBoard)-1
+        self.currentPlayer = len(self.playersOnBoard)-2
         for token in parse.Parse.myListReward:
             self.pocket.append(token)
 
