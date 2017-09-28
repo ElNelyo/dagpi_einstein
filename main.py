@@ -526,9 +526,6 @@ class Game():
         buttonRecycle = self.displayButton(fenetre, "Recycle",
                                            Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH / 3, Game.HEIGHT / 10 * 9 + 30, 60,
                                            20, 14, Game.WHITE)
-        buttonNext = self.displayButton(fenetre, "Next",
-                                        Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH / 3 * 2, Game.HEIGHT / 10 * 9 + 30,
-                                        60, 20, 14, Game.RED)
 
         while loop:
 
