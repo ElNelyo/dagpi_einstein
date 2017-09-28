@@ -1,7 +1,9 @@
 # Create Gameboard class
 import parse
 import random
-
+import function
+from Token import Token
+from Invention import Invention
 
 class Gameboard:
     age = 0
@@ -9,13 +11,28 @@ class Gameboard:
     playersOnBoard          = []
     pocket                  = []
     emplacementOnBoard      = []
+    possibleactions         = []
+    currentPlayer = 0
 
-    def __init__(self, tour, nbPlayer):
+    def __init__(self, tour, listPlayer):
         self.tour = tour
         self.age = 1
-        self.nbCardToDistribute = (nbPlayer + 3)
+        self.playersOnBoard = listPlayer
+        self.nbCardToDistribute = len(self.playersOnBoard) + 3
+        self.currentPlayer = len(self.playersOnBoard)-2
         for token in parse.Parse.myListReward:
             self.pocket.append(token)
+
+    def awakeCurrentPlayer(self):
+        function.Function.awake(self, self.playersOnBoard[self.currentPlayer].myTeam.inventors)
+
+    def giveRewardToPlayer(self, player, reward):
+        if type(reward) is Token:
+            print("'Its an Token ! Fantastic !!")
+            self.playersOnBoard[player].myTeam.listTokens.append(reward)
+
+        elif type(reward) is Invention:
+            print("'Its an Invention ! Amazing !")
 
     def distribute(self):
         cards = parse.Parse()
@@ -49,16 +66,12 @@ class Gameboard:
                 inventor.sleep = False
         else:
             inventor.sleep = True
-
-
-
-    """def truc(self):
-        for card in self.cardsOnBoard:
-            print("----------------------")
-            print(card.name)
-            for knowl in card.knowledge:
-                print(knowl)
-    """
+    def newTurn(self):
+        print("It's a new turn for a life")
+        self.currentPlayer = (self.currentPlayer + 1)%(len(self.playersOnBoard))
+        tempInventors = self.playersOnBoard[self.currentPlayer].myTeam.inventors
+        self.possibleactions = (function.Function.all_possible_action(self, tempInventors,self.cardsOnBoard))
+        print(self.currentPlayer)
 
 
 
