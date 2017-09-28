@@ -3,7 +3,7 @@ import parse
 import random
 import function
 from Token import Token
-from Invention import Invention
+from invention import Invention
 
 class Gameboard:
     age = 0

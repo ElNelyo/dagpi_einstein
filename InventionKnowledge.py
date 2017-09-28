@@ -1,5 +1,5 @@
 import Knowledge
-import Invention
+import invention
 
 
 class InventionKnowledge:

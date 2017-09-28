@@ -4,7 +4,7 @@ import Inventor
 import Knowledge
 import InventorKnowledge
 import InventorKnowledgeTarget
-import Invention
+from invention import Invention
 import Token
 import InventionKnowledge
 from Team import Team
@@ -121,7 +121,7 @@ class Parse:
                 # Invention Object
                 nametmp = name[0].firstChild.nodeValue
                 myClassification = classification[0].firstChild.nodeValue
-                myInvention = Invention.Invention(nametmp, myClassification, knowledge)
+                myInvention = Invention(nametmp, myClassification, knowledge)
                 self.myListInvention.append(myInvention)
 
 
