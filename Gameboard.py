@@ -77,15 +77,3 @@ class Gameboard:
 
 
 
-    """def truc(self):
-        for card in self.cardsOnBoard:
-            print("----------------------")
-            print(card.name)
-            for knowl in card.knowledge:
-                print(knowl)
-    """
-
-
-
-
-

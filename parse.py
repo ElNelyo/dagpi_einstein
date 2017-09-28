@@ -89,9 +89,6 @@ class Parse:
                     print(" ")
                 myTeam = Team(listInventorsFromSingleTeam, myColor)
                 self.myListTeam.append(myTeam)
-                """"for team in myTeam.inventors:
-                print("LDOKDODSOKDKS33"+team.name[0].firstChild.nodeValue)
-                print("LDOKDODSOKDKS33"+myTeam.color)"""
 
     def loadInvention(self):
         #For each invention in inventions list
