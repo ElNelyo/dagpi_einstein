@@ -2,6 +2,8 @@
 import parse
 import random
 import function
+from Token import Token
+from Invention import Invention
 
 class Gameboard:
     age = 0
@@ -23,6 +25,15 @@ class Gameboard:
 
     def awakeCurrentPlayer(self):
         function.Function.awake(self, self.playersOnBoard[self.currentPlayer].myTeam.inventors)
+
+    def giveRewardToPlayer(self, player, reward):
+        if type(reward) is Token:
+            print("'Its an Token ! Fantastic !!")
+            self.playersOnBoard[player].myTeam.listTokens.append(reward)
+
+        elif type(reward) is Invention:
+            print("'Its an Invention ! Amazing !")
+
     def distribute(self):
         cards = parse.Parse()
         cards = cards.getInvention()

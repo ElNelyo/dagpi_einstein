@@ -12,9 +12,6 @@ class Player:
             if colorChose == team.color:
                 self.myTeam = team
 
-    def displayTruc(self):
-        print("HELLO DARKNESS MY OLD FRIEND")
-
 
 class Human(Player):
     def play(self):
