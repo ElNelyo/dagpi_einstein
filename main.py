@@ -383,17 +383,21 @@ class Game():
         for i in range(0, len(cards)):
             heightoffest = 20
             heightknow = 5
+            currentCard = cards[i]
 
-            for kn in cards[i].knowledge:
+            knId = 0
+
+            for kn in currentCard.knowledge:
                 widthoffset = 0
 
                 for j in range(0, kn):
-                    pygame.draw.rect(fenetre, Game.WHITE,
+                    pygame.draw.rect(fenetre, currentCard.generalKnowledgeColors[knId][j],
                                      [positions[i][0] + widthoffset, positions[i][1] + heightoffest,
                                       rectSize, rectSize])
                     widthoffset += (rectSize + 2)
 
                 heightoffest += (rectSize + 2)
+                knId += 1
             if i > 4:
                 for i in range(0, 4):
                     heightknow = 20
@@ -410,8 +414,6 @@ class Game():
                         label = myfont.render(knowledgeLegend[j], 1, (0, 0, 0))
                         fenetre.blit(label, (positions[i][0] - 25, positions[i][1] + heightknow + 178))
                         heightknow += 19
-
-                        # print(cards[0].knowledge)
 
     def displayButton(self, fenetre, text, posX, posY, sizeX, sizeY, fontSize, color):
 
@@ -460,10 +462,24 @@ class Game():
             self.displayButton(fenetre, invention[2].name, buttonSettings[0] + offsetX,
                                buttonSettings[1] + oneLine,
                                110, 15, 10, color)
-            boutons.append([buttonSettings[0] + offsetX, buttonSettings[1] + oneLine, 100, 15])
+            boutons.append([buttonSettings[0] + offsetX, buttonSettings[1] + oneLine, 100, 15, invention[2].name])
             oneLine += 16
 
         return boutons
+
+    def fromStringToRGB(self, strColor):
+
+        if strColor == "green":
+            return Game.GREEN
+        elif strColor == "purple":
+            return Game.PURPLE
+        elif strColor == "red":
+            return Game.RED
+        elif strColor == "yellow":
+            return Game.YELLOW
+        elif strColor == "blue":
+            return Game.BLUE
+
 
     def loadPlayersBackgrounds(self, fenetre, fondCard, playerColor, IANumber):
 
@@ -531,6 +547,8 @@ class Game():
 
         while loop:
 
+            inventionClicked = 0
+
             pygame.display.flip()
             # Draw a rectangle outline for each player area
 
@@ -570,15 +588,40 @@ class Game():
                     droplistaction = self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
                     for button in droplistaction:
                         if self.overButton(event.pos, button):
-                            self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
-                            clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
-                            ActionChoosen.append(clickedAction[2])
-                            print(clickedAction[2].name)
-                            print(clickedInventor.name)
-                            hasChoosenAction = True
-                            dropListActionDisplayed == False
-                            CubePosed = True
-                            self.Next(clickedAction[2],InventorChoosen)
+
+                            RGBPlayerColor = self.fromStringToRGB(playerColor)
+
+                            # Here if clicked on an invention in the dropList to add cubes on it
+
+                            for invention in cards:
+                                if invention.name == button[4] : #If invention name is the same as button label
+                                    inventionClicked = invention
+
+                            # We have inventionClicked and clickedInventor
+
+                            knId = 0
+                            for knowledge in clickedInventor.currentKnowledge:
+                                for i in range(0, knowledge):
+
+                                    colorsToTest = inventionClicked.generalKnowledgeColors[knId]
+
+                                    placeCubeLoop = True
+                                    position = 0
+
+                                    if len(colorsToTest) > 0:
+                                        while position < (len(colorsToTest)) and placeCubeLoop:
+                                            print(knId, " ", position)
+                                            if colorsToTest[position] == Game.WHITE:
+                                                placeCubeLoop = False
+                                                colorsToTest[position] = RGBPlayerColor
+                                            position += 1
+
+                                knId += 1
+
+                            self.displayCards(cards, fenetre)
+
+                            pygame.display.flip()
+
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.overButton(event.pos, button1Settings):
@@ -600,7 +643,7 @@ class Game():
                                 for action in self.gameboard.possibleactions:
                                     dropListDisplayed = False
                                     
-                                    if (action[1].name == clickedInventor.name):
+                                    if action[1].name == clickedInventor.name:
 
                                         inventionListPosssible.append(action)
                                         dropListActionDisplayed = not dropListActionDisplayed
