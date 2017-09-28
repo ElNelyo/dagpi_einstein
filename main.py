@@ -576,6 +576,13 @@ class Game():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     loop = False
+                elif event.type == pygame.MOUSEBUTTONDOWN and dropListActionDisplayed:
+                        droplistaction = self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
+                        for button in droplistaction:
+                            if self.overButton(event.pos, button):
+                                self.displayInventionPossible(fenetre, button1Settings, inventionListPosssible)
+                                clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
+                                print(clickedAction[2].name)
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                         if self.overButton(event.pos, button1Settings):
                             if dropListDisplayed:
@@ -601,13 +608,7 @@ class Game():
                                             dropListActionDisplayed = not dropListActionDisplayed
                                     print(inventionListPosssible)
                                     dropListActionDisplayed = True
-                        if dropListActionDisplayed :
-                                droplistaction = self.displayInventionPossible(fenetre, button1Settings,inventionListPosssible)
-                                for button in droplistaction:
-                                 if self.overButton(event.pos, button):
-                                    self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
-                                    clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
-                                    print(clickedAction[2].name)
+
                         #Click on Coffee button
                         if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
                             0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
