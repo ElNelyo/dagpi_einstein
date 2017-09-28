@@ -577,52 +577,51 @@ class Game():
                 if event.type == pygame.QUIT:
                     loop = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                        if self.overButton(event.pos, button1Settings):
-                            if dropListDisplayed:
-                                print("hide droplist") #TODO
-                            else:
-                                dropList = self.displayDropList(fenetre, button1Settings, myInventors)
-                            dropListDisplayed = not dropListDisplayed
-                        inventionListPosssible = []
+                    if self.overButton(event.pos, button1Settings):
                         if dropListDisplayed:
-                            for button in dropList:
-                                if self.overButton(event.pos, button):
-                                    clickedInventor = myInventors[int((button[1]-390)/16)]
-                                    clickedInventor.sleep = True
-                                    dropList = self.displayDropList(fenetre, button1Settings, myInventors)
-                                    print(clickedInventor.name)
-                                    dropListDisplayed = not dropListDisplayed
-                                    for action in self.gameboard.possibleactions:
-                                        dropListDisplayed = False
-                                        if (action[1].name == clickedInventor.name):
-                                            #print("Actions possibles")
-                                            #print(action[2].name)
-                                            inventionListPosssible.append(action)
-                                            dropListActionDisplayed = not dropListActionDisplayed
-                                    print(inventionListPosssible)
-                                    dropListActionDisplayed = True
-                        if dropListActionDisplayed :
-                                droplistaction = self.displayInventionPossible(fenetre, button1Settings,inventionListPosssible)
-                                for button in droplistaction:
-                                 if self.overButton(event.pos, button):
-                                    self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
-                                    clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
-                                    print(clickedAction[2].name)
-                        #Click on Coffee button
-                        if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
-                            0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
-                            1] < Game.HEIGHT / 10 * 9 + 50:
-                            loop = True
-                            while loop:
-                                print(self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens)
-                                for token in self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens:
-                                    #If the tokenList contain an availabilityReward then it remove this one, and call the awake function on all inventors
-                                    #Then, it leave the loop
-                                    if token.type == "availabilityReward":
-                                        self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens.remove(token)
-                                        self.gameboard.awakeCurrentPlayer()
-                                        break
-                                loop = False
+                            print("hide droplist") #TODO
+                        else:
+                            dropList = self.displayDropList(fenetre, button1Settings, myInventors)
+                        dropListDisplayed = not dropListDisplayed
+                    inventionListPosssible = []
+                    if dropListDisplayed:
+                        for button in dropList:
+                            if self.overButton(event.pos, button):
+                                clickedInventor = myInventors[int((button[1]-390)/16)]
+                                clickedInventor.sleep = True
+                                dropList = self.displayDropList(fenetre, button1Settings, myInventors)
+                                print(clickedInventor.name)
+                                dropListDisplayed = not dropListDisplayed
+                                for action in self.gameboard.possibleactions:
+                                    dropListDisplayed = False
+                                    if (action[1].name == clickedInventor.name):
+                                        #print("Actions possibles")
+                                        #print(action[2].name)
+                                        inventionListPosssible.append(action)
+                                        dropListActionDisplayed = not dropListActionDisplayed
+                                print(inventionListPosssible)
+                                dropListActionDisplayed = True
+                    if dropListActionDisplayed :
+                            droplistaction = self.displayInventionPossible(fenetre, button1Settings,inventionListPosssible)
+                            for button in droplistaction:
+                             if self.overButton(event.pos, button):
+                                self.displayInventionPossible(fenetre,button1Settings,inventionListPosssible)
+                                clickedAction = inventionListPosssible[int((button[1] - 390) / 16)]
+                                print(clickedAction[2].name)
+                    #Click on Coffee button
+                    if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
+                        0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
+                        1] < Game.HEIGHT / 10 * 9 + 50:
+                        loopToken = True
+                        while loopToken:
+                            print(self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens)
+                            for token in self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens:
+                                #If the tokenList contain an availabilityReward then it remove this one, and call the awake function on all inventors
+                                #Then, it leave the loop
+                                if token.type == "availabilityReward":
+                                    self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens.remove(token)
+                                    self.gameboard.awakeCurrentPlayer()
+                            loopToken = False
 
 
 
