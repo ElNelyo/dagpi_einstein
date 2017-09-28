@@ -623,11 +623,17 @@ class Game():
                                 # If the tokenList contain an availabilityReward then it remove this one, and call the awake function on all inventors
                                 # Then, it leave the loop
                                 if token.type == "availabilityReward":
-                                    self.gameboard.playersOnBoard[
-                                    self.gameboard.currentPlayer].myTeam.listTokens.remove(token)
+                                    self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens.remove(token)
                                     self.gameboard.awakeCurrentPlayer()
                                     break
                             loopToken = False
+
+                    #         Recycle button
+                    if event.type == pygame.MOUSEBUTTONDOWN and Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH / 3 < event.pos[
+                        0] < Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH / 3 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
+                        1] < Game.HEIGHT / 10 * 9 + 50:
+                        self.gameboard.awakeCurrentPlayer()
+                        print("Recycle button yata ! ")
 
             pygame.display.flip()
             # 10 fps
