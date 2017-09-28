@@ -317,7 +317,7 @@ class Game():
 
         line = 2
         height = int(self.HEIGHT / 4)  # 1/4 of the screen height
-        tokenOnBoard = Gameboard.emplacementOnBoard
+        tokenOnBoard = self.gameboard.emplacementOnBoard
         myfonttoken = pygame.font.SysFont("bitstreamverasans", 10)
 
         i = 0
@@ -515,9 +515,9 @@ class Game():
             listPlayer.append(player)
 
         # Display the inventors infos
-        gameboard = Gameboard(1, listPlayer)
-        cards = gameboard.distribute()
-        gameboard.newTurn(myInventors)
+        self.gameboard = Gameboard(1, listPlayer)
+        cards = self.gameboard.distribute()
+        self.gameboard.newTurn(myInventors)
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
         self.displayToken(fenetre)
@@ -592,7 +592,7 @@ class Game():
                                     dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                     print(clickedInventor.name)
                                     dropListDisplayed = not dropListDisplayed
-                                    for action in gameboard.possibleactions:
+                                    for action in self.gameboard.possibleactions:
                                         dropListDisplayed = False
                                         if (action[1].name == clickedInventor.name):
                                             #print("Actions possibles")
