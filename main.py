@@ -599,22 +599,27 @@ class Game():
                                 print(inventionListPosssible)
                                 dropListActionDisplayed = True
 
-                    # Click on Coffee button
+                    if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 + 180 < event.pos[
+                                0] < Game.WIDTH / 2 + 250 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
+                                1] < Game.HEIGHT / 10 * 9 + 50:
+                        print("Next")
+
+                                # Click on Coffee button
                     if event.type == pygame.MOUSEBUTTONDOWN and Game.WIDTH / 2 < event.pos[
                         0] < Game.WIDTH / 2 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
                         1] < Game.HEIGHT / 10 * 9 + 50:
-                        loop = True
-                        while loop:
+                        loopToken = True
+                        while loopToken:
                             print(self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens)
                             for token in self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.listTokens:
                                 # If the tokenList contain an availabilityReward then it remove this one, and call the awake function on all inventors
                                 # Then, it leave the loop
                                 if token.type == "availabilityReward":
                                     self.gameboard.playersOnBoard[
-                                        self.gameboard.currentPlayer].myTeam.listTokens.remove(token)
+                                    self.gameboard.currentPlayer].myTeam.listTokens.remove(token)
                                     self.gameboard.awakeCurrentPlayer()
                                     break
-                            loop = False
+                            loopToken = False
 
             pygame.display.flip()
             # 10 fps
