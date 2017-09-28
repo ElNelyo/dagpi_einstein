@@ -3,7 +3,6 @@
 import random
 
 import pygame
-
 import Player
 import parse
 from Gameboard import Gameboard
@@ -509,7 +508,7 @@ class Game():
         # Display the inventors infos
         self.gameboard = Gameboard(1, listPlayer)
         cards = self.gameboard.distribute()
-        self.gameboard.newTurn(myInventors)
+        self.gameboard.newTurn()
         for player in range(0, IANumber):
             self.displayInventors(player, colorListString, playerPositions[player], fenetre)
         self.displayToken(fenetre)
@@ -590,7 +589,7 @@ class Game():
                     if dropListDisplayed:
                         for button in dropList:
                             if self.overButton(event.pos, button):
-                                clickedInventor = myInventors[int((button[1] - 390) / 16)]
+                                clickedInventor = self.gameboard.playersOnBoard[self.gameboard.currentPlayer].myTeam.inventors[int((button[1] - 390) / 16)]
                                 clickedInventor.sleep = True
                                 dropList = self.displayDropList(fenetre, button1Settings, myInventors)
                                 print(clickedInventor.name)
@@ -633,6 +632,7 @@ class Game():
                         0] < Game.WINDOW_WIDTH * 2 + Game.WINDOW_WIDTH / 3 + 60 and Game.HEIGHT / 10 * 9 + 30 < event.pos[
                         1] < Game.HEIGHT / 10 * 9 + 50:
                         self.gameboard.awakeCurrentPlayer()
+                        self.gameboard.newTurn()
                         print("Recycle button yata ! ")
 
             pygame.display.flip()

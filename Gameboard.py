@@ -66,10 +66,12 @@ class Gameboard:
                 inventor.sleep = False
         else:
             inventor.sleep = True
-    def newTurn(self,team):
-        print("LLALLALLALL")
-        self.possibleactions = (function.Function.all_possible_action(self,team,self.cardsOnBoard))
-
+    def newTurn(self):
+        print("It's a new turn for a life")
+        self.currentPlayer = (self.currentPlayer + 1)%(len(self.playersOnBoard))
+        tempInventors = self.playersOnBoard[self.currentPlayer].myTeam.inventors
+        self.possibleactions = (function.Function.all_possible_action(self, tempInventors,self.cardsOnBoard))
+        print(self.currentPlayer)
 
 
 
