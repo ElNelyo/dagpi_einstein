@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 import random
-
+from function import Function
 import pygame
 import Player
 import parse
@@ -625,26 +625,27 @@ class Game():
 
                             self.placeCube(playerColor, cards, inventionClicked, clickedInventor, fenetre)
 
+                            clickedInventor.sleep = True
+
                             # We have played, time for the random AIs
 
                             for AI in colorListString:
+                                
                                 if(AI != playerColor):
                                     intors = self.getMyInventors(AI)
                                     ID = random.randrange(0, 4)
                                     intor = intors[ID]
 
                                     inventionList = intor.boardCardsForInventor(cards)
-                                    ID = random.randrange(0, len(inventionList))
-                                    intion = inventionList[ID]
-
-                                    self.placeCube(AI, cards, intion, intor, fenetre)
-
-
-
-
-
-
-
+                                    if len(inventionList) > 0:
+                                        ID = random.randrange(0, len(inventionList))
+                                        intion = inventionList[ID]
+                                        self.placeCube(AI, cards, intion, intor, fenetre)
+                                    else:
+                                        team = self.getMyTeam(AI)
+                                        for inventor in team.inventors:
+                                            inventor.sleep = False
+                                        print("Player ", AI, " recycles !")
 
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:

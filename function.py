@@ -49,15 +49,15 @@ class Function :
 
 
     # Wake up all the inventors of a team
-    def awake(self,myTeam):
+    def awake(self, myTeam):
         for inventor in myTeam:
-            if inventor.sleep == True:
+            if inventor.sleep:
                 inventor.sleep = False
 
 
     # shut down an inventor
-    def goToSleep(self,myInventor):
-        if myInventor.sleep == False:
+    def goToSleep(self, myInventor):
+        if not myInventor.sleep:
             myInventor.sleep = True
 
 
@@ -67,7 +67,7 @@ class Function :
     '''
 
     #Return a list of possible actions for a user on a team
-    def all_possible_action(self,myTeam, myCardBoard):
+    def all_possible_action(self, myTeam, myCardBoard):
         allPossibleAction = []
         cptAwake = 0
         for inventor in myTeam:
@@ -75,23 +75,16 @@ class Function :
                 #listCompatibleInventions est la liste d'inventions du plateau compatible avec l'inventeur
                 listCompatibleInventions = inventor.boardCardsForInventor(myCardBoard)
                 for invention in listCompatibleInventions:
-                    ioilist=[]
-                    ioilist.append(Action.IOI)
-                    ioilist.append(inventor)
-                    ioilist.append(invention)
+                    ioilist = [Action.IOI, inventor, invention]
                     allPossibleAction.append(ioilist)
 
-            if inventor.sleep==True:
-                cptAwake +=1
+            if inventor.sleep:
+                cptAwake += 1
 
-        if cptAwake>0:
-            awakeList = []
-            awakeList.append(Action.AWAKE)
-            awakeList.append("Recycle")
+        if cptAwake > 0:
+            awakeList = [Action.AWAKE, "Recycle"]
             allPossibleAction.append(awakeList)
-            awakeList = []
-            awakeList.append(Action.AWAKE)
-            awakeList.append("Coffee")
+            awakeList = [Action.AWAKE, "Coffee"]
             allPossibleAction.append(awakeList)
 
         return allPossibleAction

@@ -28,11 +28,20 @@ class Inventor:
 
             for competence in Knowledge:
 
-                if invention.knowledge[competence.value] == 0 or self.currentKnowledge[competence.value ] == 0:
+                if invention.knowledge[competence.value] == 0 \
+                        or self.currentKnowledge[competence.value] == 0 \
+                        or self.sleep:
                     listKnowledge.append(0)
 
                 else:
-                    a = min(invention.knowledge[competence.value], self.currentKnowledge[competence.value])
+                    whiteSquares = []
+                    for knowledgeColors in invention.generalKnowledgeColors:
+                        nbWhite = 0
+                        for i in  range(0, len(knowledgeColors)):
+                            if knowledgeColors[i] == (255, 255, 255):
+                                nbWhite += 1
+                        whiteSquares.append(nbWhite)
+                    a = min(whiteSquares[competence.value], self.currentKnowledge[competence.value])
                     listKnowledge.append(a)
 
 
